@@ -33,6 +33,8 @@ angular.module('starter.controllers', [])
       vaigostar : true,
     },
   ];
+  $scope.txt_vaigostar = "Você vai gostar!";
+  $scope.txt_nvaigostar = "Você vai detestar!";
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {

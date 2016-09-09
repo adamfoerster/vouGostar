@@ -1,68 +1,15 @@
 <ion-view view-title="Vou Gostar?">
   <ion-content class="padding">
     <div class="list" id="filmes">
-      <a class="item item-thumbnail-left" href="#">
-        <img src="img/startrek.jpg">
-        <h2>Star Trek Sem Fronteiras</h2>
-
+      <a class="item item-thumbnail-left" href="#" ng-repeat="filme in filmes">
+        <img src="img/{{filme.thumbnail}}">
+        <h2>{{filme.titulo}}</h2>
         <div class="row">
-          <div class="col col-bottom"><button class="button button-full button-small button-balanced ion-happy-outline">
-            Vai Gostar
+          <div class="col col-bottom" ng-if="filme.vaigostar == true"><button class="button button-full button-small button-balanced ion-happy-outline">
+            {{txt_vaigostar}}
           </button></div>
-          <div class="col col-50 col-bottom">
-            <button class="button button-small button-clear button-positive icon ion-clock padding-left"> Horários</button>
-            <button class="button button-small button-clear button-positive icon ion-film-marker"> Info</button>
-          </div>
-        </div>
-      </a>
-
-      <a class="item item-thumbnail-left" href="#">
-        <img src="img/pets.jpg">
-        <h2>A vida secreta dos bichos</h2>
-        <div class="row">
-          <div class="col"><button class="button button-full button-small button-assertive ion-sad-outline">
-            Vai Detestar
-          </button></div>
-          <div class="col col-50 col-bottom">
-            <button class="button button-small button-clear button-positive icon ion-clock padding-left"> Horários</button>
-            <button class="button button-small button-clear button-positive icon ion-film-marker"> Info</button>
-          </div>
-        </div>
-      </a>
-      <a class="item item-thumbnail-left" href="#">
-        <img src="img/namorado.jpg">
-        <h2>Um namorado pra minha mulher</h2>
-
-        <div class="row">
-          <div class="col"><button class="button button-full button-small button-assertive ion-sad-outline">
-            Vai Detestar
-          </button></div>
-          <div class="col col-50 col-bottom">
-            <button class="button button-small button-clear button-positive icon ion-clock padding-left"> Horários</button>
-            <button class="button button-small button-clear button-positive icon ion-film-marker"> Info</button>
-          </div>
-        </div>
-      </a>
-      <a class="item item-thumbnail-left" href="#">
-        <img src="img/suicide.jpg">
-        <h2>Esquadrão Suicida</h2>
-        <div class="row">
-          <div class="col"><button class="button button-full button-small button-balanced ion-happy-outline">
-            Vai Gostar
-          </button></div>
-          <div class="col col-50 col-bottom">
-            <button class="button button-small button-clear button-positive icon ion-clock padding-left"> Horários</button>
-            <button class="button button-small button-clear button-positive icon ion-film-marker"> Info</button>
-          </div>
-        </div>
-
-      </a>
-      <a class="item item-thumbnail-left" href="#">
-        <img src="img/benhur.jpg">
-        <h2>Ben Hur</h2>
-        <div class="row">
-          <div class="col"><button class="button button-full button-small button-assertive ion-sad-outline">
-            Vai Detestar
+          <div class="col col-bottom" ng-if="filme.vaigostar == false"><button class="button button-full button-small button-assertive ion-happy-outline">
+            {{txt_nvaigostar}}
           </button></div>
           <div class="col col-50 col-bottom">
             <button class="button button-small button-clear button-positive icon ion-clock padding-left"> Horários</button>
