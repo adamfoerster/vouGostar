@@ -1,22 +1,33 @@
 <ion-view view-title="Vou Gostar?">
   <ion-content class="padding">
+
     <div class="list" id="filmes">
-      <a class="item item-thumbnail-left" href="#" ng-repeat="filme in filmes">
+      <div class="item item-divider item-balanced ion-happy-outline"> Acho que você vai gostar destes</div>
+      <div class="item item-thumbnail-left" ng-repeat="filme in filmes_vaigostar">
         <img src="img/{{filme.thumbnail}}">
         <h2>{{filme.titulo}}</h2>
         <div class="row">
-          <div class="col col-bottom" ng-if="filme.vaigostar == true"><button class="button button-full button-small button-balanced ion-happy-outline">
-            {{txt_vaigostar}}
-          </button></div>
-          <div class="col col-bottom" ng-if="filme.vaigostar == false"><button class="button button-full button-small button-assertive ion-happy-outline">
-            {{txt_nvaigostar}}
-          </button></div>
           <div class="col col-50 col-bottom">
-            <button class="button button-small button-clear button-positive icon ion-clock padding-left"> Horários</button>
-            <button class="button button-small button-clear button-positive icon ion-film-marker"> Info</button>
+            <button class="button button-small button-full button-positive ion-clock padding-left" href="#/tab/horarios/{{filme.id}}"> Horários</button>
+          </div>
+          <div class="col col-50 col-bottom">
+            <button class="button button-small button-full button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}"> Info.</button>
           </div>
         </div>
-      </a>
+      </div>
+      <div class="item item-divider item-assertive ion-sad-outline"> Esses você vai detestar</div>
+      <div class="item item-thumbnail-left" ng-repeat="filme in filmes_nvaigostar">
+        <img src="img/{{filme.thumbnail}}">
+        <h2>{{filme.titulo}}</h2>
+        <div class="row">
+          <div class="col col-50 col-bottom">
+            <button class="button button-small button-full button-positive ion-clock padding-left" href="#/tab/horarios/{{filme.id}}"> Horários</button>
+          </div>
+          <div class="col col-50 col-bottom">
+            <button class="button button-small button-full button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}"> Info.</button>
+          </div>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

@@ -1,24 +1,12 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
-  $scope.filmes = [
+  $scope.filmes_vaigostar = [
     {
       id : 1,
       titulo : 'Star Trek Sem Fronteiras',
       thumbnail : 'startrek.jpg',
       vaigostar : true,
-    },
-    {
-      id : 2,
-      titulo : 'A vida secreta dos bichos',
-      thumbnail : 'pets.jpg',
-      vaigostar : false,
-    },
-    {
-      id : 3,
-      titulo : 'Um namorado pra minha mulher',
-      thumbnail : 'namorado.jpg',
-      vaigostar : false,
     },
     {
       id : 4,
@@ -31,6 +19,20 @@ angular.module('starter.controllers', [])
       titulo : 'Ben Hur',
       thumbnail : 'benhur.jpg',
       vaigostar : true,
+    },
+  ];
+  $scope.filmes_nvaigostar = [
+    {
+      id : 2,
+      titulo : 'A vida secreta dos bichos',
+      thumbnail : 'pets.jpg',
+      vaigostar : false,
+    },
+    {
+      id : 3,
+      titulo : 'Um namorado pra minha mulher',
+      thumbnail : 'namorado.jpg',
+      vaigostar : false,
     },
   ];
   $scope.txt_vaigostar = "Você vai gostar!";
