@@ -1,40 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
-  $scope.filmes_vaigostar = [
-    {
-      id : 1,
-      titulo : 'Star Trek Sem Fronteiras',
-      thumbnail : 'startrek.jpg',
-      vaigostar : true,
-    },
-    {
-      id : 4,
-      titulo : 'Esquadrão Suicida',
-      thumbnail : 'suicide.jpg',
-      vaigostar : true,
-    },
-    {
-      id : 5,
-      titulo : 'Ben Hur',
-      thumbnail : 'benhur.jpg',
-      vaigostar : true,
-    },
-  ];
-  $scope.filmes_nvaigostar = [
-    {
-      id : 2,
-      titulo : 'A vida secreta dos bichos',
-      thumbnail : 'pets.jpg',
-      vaigostar : false,
-    },
-    {
-      id : 3,
-      titulo : 'Um namorado pra minha mulher',
-      thumbnail : 'namorado.jpg',
-      vaigostar : false,
-    },
-  ];
+.controller('DashCtrl', function($scope, Filmes) {
+  $scope.filmes_vaigostar = Filmes.all();
+  $scope.filmes_nvaigostar = Filmes.listar(false);
+
   $scope.txt_vaigostar = "Você vai gostar!";
   $scope.txt_nvaigostar = "Você vai detestar!";
 })
@@ -62,4 +31,13 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
-});
+})
+
+.controller('FilmeCtrl', function($scope, $stateParams){
+  $scope.filme = 'hello world';
+})
+
+.controller('HorariosCtrl', function($scope, $stateParams){
+  $scope.filme = 'hello world';
+})
+;
