@@ -1,5 +1,10 @@
-<ion-view view-title="Horarios">
+<ion-view view-title="Horários">
   <ion-content>
-    hello world
+    <div class="list">
+        <div ng-repeat="cinema in filme.horarios">
+            <div class="item item-divider">{{cinema.cinema}}</div>
+            <div class="item" ng-bind-html="cinema.sessoes"></div>
+        </div>
+    </div>
   </ion-content>
 </ion-view>

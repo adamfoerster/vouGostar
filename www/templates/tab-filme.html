@@ -5,10 +5,11 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{filme.titulo}}">
-  <ion-content class="padding">
-    <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{chat.lastText}}
-    </p>
+  <ion-content>
+    <img ng-src="img/{{filme.capa}}" style="width: 100%;">
+    <div class="padding">
+        <h3>{{filme.titulo}}</h3>
+        <p>{{filme.info}}</p>
+    </div>
   </ion-content>
 </ion-view>
