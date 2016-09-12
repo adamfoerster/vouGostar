@@ -33,11 +33,11 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('FilmeCtrl', function($scope){
-  $scope.filme = Filme.get($stateParams.filmeId);
+.controller('FilmeCtrl', function($scope, $stateParams){
+  $scope.filme = 'hello world';
 })
 
-.controller('HorariosCtrl', function($scope){
-  $scope.filme = Filme.get($stateParams.filmeId);
+.controller('HorariosCtrl', function($scope, $stateParams){
+  $scope.filme = 'hello world';
 })
 ;
