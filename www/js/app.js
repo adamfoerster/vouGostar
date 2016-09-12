@@ -49,7 +49,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-
   .state('tab.chats', {
       url: '/chats',
       views: {
@@ -80,7 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   })
 
-  .state('tab.filme',{
+  .state('tab.filme', {
     url: '/filme/:filmeId',
     views: {
       'tab-filme': {
@@ -90,7 +89,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  .state('tab.horarios',{
+  .state('tab.horarios', {
     url: '/horarios/:filmeId',
     views: {
       'tab-horarios': {
