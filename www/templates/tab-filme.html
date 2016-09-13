@@ -6,10 +6,23 @@
 -->
 <ion-view view-title="{{filme.titulo}}">
   <ion-content>
-    <img ng-src="img/{{filme.capa}}" style="width: 100%;">
-    <div class="padding">
-        <h3>{{filme.titulo}}</h3>
+    <div class="list card">
+
+      <div class="item item-avatar">
+        <img ng-src="img/{{filme.thumbnail}}">
+        <h2>{{filme.titulo}}</h2>
+        <p>2016 - Justin Lin</p>
+      </div>
+
+      <div class="item item-body">
+        <img class="full-image" ng-src="img/{{filme.capa}}">
         <p>{{filme.info}}</p>
+        <div class="row">
+          <div class="col peq">PG</div>
+          <div class="col peq text-center">125min</div>
+          <div class="col peq text-right">IMAX/3D</div>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>
