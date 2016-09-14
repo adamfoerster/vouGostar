@@ -1,7 +1,25 @@
 /* Empty. Add your own CSS if you like */
-#filmes button{margin:0}
-.peq{font-size: 0.75em}
-.fundo-assertive{background-color: #ef473a}
-.no-padding{padding:0}
-.botoes .primeiro{padding:0 10px 0 0}
-.botoes .segundo{padding:0 0 0 5px}
+
+#filmes button {
+  margin: 0
+}
+
+.peq {
+  font-size: 0.75em
+}
+
+.fundo-assertive {
+  background-color: #ef473a
+}
+
+.no-padding {
+  padding: 0
+}
+
+.botoes .primeiro {
+  padding: 0 10px 0 0
+}
+
+.botoes .segundo {
+  padding: 0 0 0 5px
+}
