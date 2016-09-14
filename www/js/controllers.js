@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, Filmes, $ionicSideMenuDelegate) {
-  $scope.filmes_vaigostar = Filmes.all();
+  $scope.filmes_vaigostar = Filmes.listar(true);
   $scope.filmes_nvaigostar = Filmes.listar(false);
 
   $scope.txt_vaigostar = "Você vai gostar!";

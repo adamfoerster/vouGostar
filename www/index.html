@@ -24,21 +24,15 @@
     <script src="js/services.js"></script>
   </head>
   <body ng-app="starter">
-      <!--
-        The views will be rendered in the <ion-nav-view> directive below
-        Templates are in the /templates folder (but you could also
-        have templates inline in this html file if you'd like).
-      -->
-
 
       <ion-side-menus enable-menu-with-back-views="false">
             <ion-side-menu-content>
-                <ion-nav-bar class="bar-positive">
+                <ion-nav-bar class="bar-assertive">
 
                     <ion-nav-back-button></ion-nav-back-button>
 
                     <ion-nav-buttons side="left">
-                      <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+                      <button class="button button-icon button-assertive ion-navicon" menu-toggle="left"></button>
                     </ion-nav-buttons>
 
                 </ion-nav-bar>
@@ -49,26 +43,17 @@
               <ion-header-bar class="bar-assertive">
                 <h1 class="title">vouGostar?</h1>
               </ion-header-bar>
-              <ion-content>
+              <ion-content class="fundo-assertive">
                 <ul class="list">
                   <!-- Note each link has the 'menu-close' attribute so the menu auto closes when clicking on one of these links -->
-                    <a href="#/tab/dash" class="item" menu-close>No Cinema Agora</a>
-                    <a href="#/tab/chats" class="item" menu-close>Pesquisar</a>
-                    <a href="#/tab/settings" class="item" menu-close>Pesquisar</a>
+                    <a href="#/tab/dash" class="item item-assertive item-icon-left" menu-close><i class="icon ion-film-marker"></i> No Cinema Agora</a>
+                    <a href="#/tab/chats" class="item item-assertive item-icon-left" menu-close><i class="icon ion-search"></i> Pesquisar</a>
+                    <a href="#/tab/settings" class="item item-assertive item-icon-left" menu-close><i class="icon ion-settings"></i> Opções</a>
                 </ul>
               </ion-content>
             </ion-side-menu>
 
         </ion-side-menus>
-
-
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <!-- <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-    </ion-nav-bar> -->
 
   </body>
 </html>
