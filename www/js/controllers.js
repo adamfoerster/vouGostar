@@ -10,6 +10,7 @@ angular.module('starter.controllers', [])
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
+
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
@@ -31,10 +32,13 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope, Trakt) {
   $scope.settings = {
     enableFriends: true
   };
+
+  $scope.init = Trakt.conectar();
+  $scope.trakt = 'vamo lá';
 })
 
 .controller('FilmeCtrl', function($scope, $stateParams, Filmes) {

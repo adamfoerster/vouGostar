@@ -118,5 +118,55 @@ angular.module('starter.services', [])
       all: function (){
           return filmes;
       },
+      trakt: function(){
+          $http.jsonp(url + '/calendar/premieres.json/' + $scope.apiKey + '/' + apiDate + '/' + 30 + '/?callback=JSON_CALLBACK').success(function(data) {
+             console.log(data);
+         }).error(function(error) {
+
+         });
+      },
     }
-  });
+  })
+
+    .factory('Trakt', function($http){
+        // var client_id = "776612b19d6d3811237441b7f05eaa19f5dcd59a650b71e6574133b1827f2431"; // live
+        var client_id = "ff3b9ae43cf4b08d7e1d47f8576ddbf1016b22fceaa0c7f0ff0695abd0d5226b"; // staging
+        var client_secret = "dcadfb407389c5d8156b77b6252c348d6e761e5fa8d59d01c3565968550b50f2"; // staging
+        var url = 'https://api-staging.trakt.tv/'; // staging
+        // var url = 'https://api.trakt.tv/'; // live
+
+        return {
+            conectar: function() {
+                var req = {
+                     method: 'POST',
+                     url: url + 'oauth/device/code',
+                     headers: {
+                       'Content-Type': 'application/json',
+                       'Access-Control-Allow-Origin' : '*',
+                       "Access-Control-Allow-Credentials", "true",
+                       "Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT",
+                       "Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+                     },
+                     data: { "client_id": client_id }
+                }
+                $http(req).then(function(data){
+                    console.log(data);
+                });
+            },
+            getUsers: function() {
+                var deferred = $q.defer();
+                var url = "http://localhost/api/api/index.php/analytics/UsersPerCube?callback=JSON_CALLBACK";
+                $http.get(url).success(function(data, status, headers, config) {
+                  console.log(data);
+                  deferred.resolve(data);
+                }).error(function(data, status, headers, config) {
+                  //this always gets called
+                  console.log(status);
+                  deferred.reject(status);
+                });
+                return deferred.promise;
+            },
+        }
+    })
+
+  ;
