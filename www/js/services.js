@@ -1,54 +1,5 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-})
-
   .factory('Filmes', function(){
     var filmes = [
       {
@@ -118,13 +69,6 @@ angular.module('starter.services', [])
       all: function (){
           return filmes;
       },
-      trakt: function(){
-          $http.jsonp(url + '/calendar/premieres.json/' + $scope.apiKey + '/' + apiDate + '/' + 30 + '/?callback=JSON_CALLBACK').success(function(data) {
-             console.log(data);
-         }).error(function(error) {
-
-         });
-      },
     }
   })
 
@@ -143,9 +87,9 @@ angular.module('starter.services', [])
                      headers: {
                        'Content-Type': 'application/json',
                        'Access-Control-Allow-Origin' : '*',
-                       "Access-Control-Allow-Credentials", "true",
-                       "Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT",
-                       "Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+                       "Access-Control-Allow-Credentials" : "true",
+                       "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+                       "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
                      },
                      data: { "client_id": client_id }
                 }
