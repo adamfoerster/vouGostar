@@ -85,17 +85,35 @@ angular.module('starter.services', [])
                      method: 'POST',
                      url: url + 'oauth/device/code',
                      headers: {
+                    //    "Access-Control-Allow-Credentials" : "true",
+                    //    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+                    //    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Origin, Accept, X-Requested-With, Content-Type, Authorization",
+                    //    'Access-Control-Allow-Origin' : '*',
+                        // "Access-Control-Allow-Methods" : "false",
                        'Content-Type': 'application/json',
-                       'Access-Control-Allow-Origin' : '*',
-                       "Access-Control-Allow-Credentials" : "true",
-                       "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-                       "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
                      },
-                     data: { "client_id": client_id }
+                     params: { "client_id": client_id }
                 }
                 $http(req).then(function(data){
                     console.log(data);
+                    return data;
                 });
+
+                // var request = new XMLHttpRequest();
+                // request.open('POST', 'https://api.trakt.tv/oauth/device/code');
+                // request.setRequestHeader('Content-Type', 'application/json');
+                // request.onreadystatechange = function () {
+                //   if (this.readyState === 4) {
+                //     console.log('Status:', this.status);
+                //     console.log('Headers:', this.getAllResponseHeaders());
+                //     console.log('Body:', this.responseText);
+                //   }
+                // };
+                // var body = {
+                //   'client_id': 'ff3b9ae43cf4b08d7e1d47f8576ddbf1016b22fceaa0c7f0ff0695abd0d5226b'
+                // };
+                // request.send(JSON.stringify(body));
+
             },
             getUsers: function() {
                 var deferred = $q.defer();
