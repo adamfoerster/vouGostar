@@ -17,8 +17,32 @@ angular.module('starter.controllers', [])
 	$scope.settings = {
 		enableFriends: true
 	};
-	$scope.init = Trakt.getFilme('Frozen').$$state;
-	$scope.trakt = 'vamo lá';
+	// $scope.init = Trakt.getFilme('Frozen').$$state;
+	// console.log($scope.init);
+	// $scope.trakt = 'vamo lá';
+	$scope.getFilme = function(t) {
+		var req = {
+			 method: 'GET',
+			 url: url ,
+			 headers: {
+			   'Content-Type': 'application/json',
+			 },
+			 params: {
+				't' : t,
+				'plot' : 'short',
+				'r' : 'json',
+			 }
+		}
+		var filme;
+		return $http(req).then(function successCallback(response){
+			// console.log(response.data);
+			// export data;
+			filme = response.data;
+			return response.data;
+		});
+		// console.log(data)
+		return filme;
+	}
 })
 
 .controller('FilmeCtrl', function($scope, $stateParams, Filmes) {

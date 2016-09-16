@@ -120,13 +120,15 @@ angular.module('starter.services', [])
                         'r' : 'json',
                      }
                 }
+                var filme;
                 return $http(req).then(function successCallback(response){
-                    // console.log(response);
+                    // console.log(response.data);
                     // export data;
+                    filme = response.data;
                     return response.data;
                 });
                 // console.log(data)
-                // return data;
+                return filme;
             },
         }
     })
