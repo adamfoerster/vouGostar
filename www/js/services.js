@@ -82,8 +82,8 @@ angular.module('starter.services', [])
         return {
             conectar: function() {
                 var req = {
-                     method: 'POST',
-                     url: url + 'oauth/device/code',
+                     method: 'GET',
+                     url: url + 'auth/signin',
                      headers: {
                     //    "Access-Control-Allow-Credentials" : "true",
                     //    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
@@ -91,11 +91,20 @@ angular.module('starter.services', [])
                     //    'Access-Control-Allow-Origin' : '*',
                         // "Access-Control-Allow-Methods" : "false",
                        'Content-Type': 'application/json',
+                       'trakt-api-key': client_id,
+                       'trakt-api-version': 2,
                      },
-                     params: { "client_id": client_id }
+                     data: {
+                         "response_type" : "code",
+                         "client_id": client_id,
+                         "redirect_uri" : "urn:ietf:wg:oauth:2.0:oob",
+                         "state" : "tab.account",
+                     }
                 }
-                $http(req).then(function(data){
+                $http(req).then(function(data, data2, data3){
                     console.log(data);
+                    console.log(data2);
+                    console.log(data3);
                     return data;
                 });
 
