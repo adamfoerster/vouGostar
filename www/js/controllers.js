@@ -17,8 +17,7 @@ angular.module('starter.controllers', [])
 	$scope.settings = {
 		enableFriends: true
 	};
-
-	$scope.init = Trakt.conectar();
+	$scope.init = Trakt.getFilme('Frozen').$$state;
 	$scope.trakt = 'vamo lá';
 })
 

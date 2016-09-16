@@ -76,66 +76,57 @@ angular.module('starter.services', [])
         // var client_id = "776612b19d6d3811237441b7f05eaa19f5dcd59a650b71e6574133b1827f2431"; // live
         var client_id = "ff3b9ae43cf4b08d7e1d47f8576ddbf1016b22fceaa0c7f0ff0695abd0d5226b"; // staging
         var client_secret = "dcadfb407389c5d8156b77b6252c348d6e761e5fa8d59d01c3565968550b50f2"; // staging
-        var url = 'https://api-staging.trakt.tv/'; // staging
+        // var url = 'https://api-staging.trakt.tv/'; // staging
         // var url = 'https://api.trakt.tv/'; // live
+        var url = "http://www.omdbapi.com/";
 
         return {
             conectar: function() {
                 var req = {
                      method: 'GET',
-                     url: url + 'auth/signin',
+                     url: url ,
                      headers: {
-                    //    "Access-Control-Allow-Credentials" : "true",
-                    //    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-                    //    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Origin, Accept, X-Requested-With, Content-Type, Authorization",
-                    //    'Access-Control-Allow-Origin' : '*',
-                        // "Access-Control-Allow-Methods" : "false",
                        'Content-Type': 'application/json',
-                       'trakt-api-key': client_id,
-                       'trakt-api-version': 2,
+                    //    'trakt-api-key': client_id,
+                    //    'trakt-api-version': 2,
                      },
-                     data: {
-                         "response_type" : "code",
-                         "client_id": client_id,
-                         "redirect_uri" : "urn:ietf:wg:oauth:2.0:oob",
-                         "state" : "tab.account",
+                     params: {
+                        //  "response_type" : "code",
+                        //  "client_id": client_id,
+                        //  "redirect_uri" : "urn:ietf:wg:oauth:2.0:oob",
+                        //  "state" : "tab.account",
+                        't' : t,
+                        'plot' : 'short',
+                        'r' : 'json',
                      }
                 }
-                $http(req).then(function(data, data2, data3){
+                var ret;
+                $http(req).then(function successCallback(data){
                     console.log(data);
-                    console.log(data2);
-                    console.log(data3);
                     return data;
                 });
-
-                // var request = new XMLHttpRequest();
-                // request.open('POST', 'https://api.trakt.tv/oauth/device/code');
-                // request.setRequestHeader('Content-Type', 'application/json');
-                // request.onreadystatechange = function () {
-                //   if (this.readyState === 4) {
-                //     console.log('Status:', this.status);
-                //     console.log('Headers:', this.getAllResponseHeaders());
-                //     console.log('Body:', this.responseText);
-                //   }
-                // };
-                // var body = {
-                //   'client_id': 'ff3b9ae43cf4b08d7e1d47f8576ddbf1016b22fceaa0c7f0ff0695abd0d5226b'
-                // };
-                // request.send(JSON.stringify(body));
-
+                return ret;
             },
-            getUsers: function() {
-                var deferred = $q.defer();
-                var url = "http://localhost/api/api/index.php/analytics/UsersPerCube?callback=JSON_CALLBACK";
-                $http.get(url).success(function(data, status, headers, config) {
-                  console.log(data);
-                  deferred.resolve(data);
-                }).error(function(data, status, headers, config) {
-                  //this always gets called
-                  console.log(status);
-                  deferred.reject(status);
+            getFilme: function(t) {
+                var req = {
+                     method: 'GET',
+                     url: url ,
+                     headers: {
+                       'Content-Type': 'application/json',
+                     },
+                     params: {
+                        't' : t,
+                        'plot' : 'short',
+                        'r' : 'json',
+                     }
+                }
+                return $http(req).then(function successCallback(response){
+                    // console.log(response);
+                    // export data;
+                    return response.data;
                 });
-                return deferred.promise;
+                // console.log(data)
+                // return data;
             },
         }
     })
