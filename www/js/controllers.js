@@ -13,35 +13,53 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('AccountCtrl', function($scope, Trakt) {
+.controller('AccountCtrl', function($scope, Omdb, $http, Globais) {
 	$scope.settings = {
 		enableFriends: true
 	};
-	// $scope.init = Trakt.getFilme('Frozen').$$state;
+    console.log(Globais.getUrl());
+	// $scope.init = Trakt.getFilme('Frozen');
 	// console.log($scope.init);
 	// $scope.trakt = 'vamo lá';
-	$scope.getFilme = function(t) {
+	$scope.getFilme = function(titulo) {
 		var req = {
 			 method: 'GET',
-			 url: url ,
+			 url: Globais.getUrl() ,
 			 headers: {
 			   'Content-Type': 'application/json',
 			 },
 			 params: {
-				't' : t,
+				't' : titulo,
 				'plot' : 'short',
 				'r' : 'json',
 			 }
 		}
-		var filme;
-		return $http(req).then(function successCallback(response){
-			// console.log(response.data);
+		$http(req).then(function successCallback(response){
+			console.log(response.data);
 			// export data;
-			filme = response.data;
-			return response.data;
+			$scope.filme = response.data;
 		});
-		// console.log(data)
-		return filme;
+	}
+})
+
+.controller('SearchCtrl', function($scope, Omdb, $http, Globais) {
+
+	$scope.getFilme = function(titulo) {
+		var req = {
+			 method: 'GET',
+			 url: Globais.getUrl() ,
+			 headers: {
+			   'Content-Type': 'application/json',
+			 },
+			 params: {
+				't' : titulo,
+				'plot' : 'short',
+				'r' : 'json',
+			 }
+		}
+		$http(req).then(function successCallback(response){
+			$scope.filme = response.data;
+		});
 	}
 })
 

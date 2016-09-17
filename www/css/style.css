@@ -23,3 +23,15 @@
 .botoes .segundo {
   padding: 0 0 0 5px
 }
+
+.dados{
+    font-size: 0.7em
+}
+.dados .campo{
+    margin-bottom: 0;
+    color: #010101
+}
+
+.dados .valor{
+    margin-top: 0
+}
