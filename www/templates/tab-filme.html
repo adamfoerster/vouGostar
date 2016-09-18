@@ -6,23 +6,41 @@
 -->
 <ion-view view-title="{{filme.titulo}}">
   <ion-content>
-    <div class="list card">
+      <div class="list card" ng-show="filme.Title">
 
-      <div class="item item-avatar">
-        <img ng-src="img/{{filme.thumbnail}}">
-        <h2>{{filme.titulo}}</h2>
-        <p>2016 - Justin Lin</p>
-      </div>
+        <div class="item item-avatar">
+          <img ng-src="{{filme.Poster}}">
+          <h2>{{filme.Title}}</h2>
+          <p>{{filme.Genre}}</p>
+        </div>
 
-      <div class="item item-body">
-        <img class="full-image" ng-src="img/{{filme.capa}}">
-        <p>{{filme.info}}</p>
-        <div class="row">
-          <div class="col peq">PG</div>
-          <div class="col peq text-center">125min</div>
-          <div class="col peq text-right">IMAX/3D</div>
+        <div class="item item-body dados">
+          <img class="full-image" ng-src="{{filme.Poster}}">
+          <p class="campo">Dirigido por</p>
+          <p class="valor">{{filme.Director}}</p>
+          <p class="campo">Escrito por</p>
+          <p class="valor">{{filme.Writer}}</p>
+          <p class="campo">Enredo</p>
+          <p class="valor">{{filme.Plot}}</p>
+          <p class="campo">Lançamento</p>
+          <p class="valor">{{filme.Released}}</p>
+          <p class="campo">Classificação Indicativa</p>
+          <p class="valor">{{filme.Rated}}</p>
+          <p class="campo">Duração</p>
+          <p class="valor">{{filme.Runtime}}</p>
+          <p class="campo">Atores</p>
+          <p class="valor">{{filme.Actors}}</p>
+          <p class="campo">País</p>
+          <p class="valor">{{filme.Country}}</p>
+          <p class="campo">Prêmios</p>
+          <p class="valor">{{filme.Awards}}</p>
+          <p class="campo">Nota no Metacritic</p>
+          <p class="valor">{{filme.Metascore}}</p>
+          <p class="campo">Nota na IMDB</p>
+          <p class="valor">{{filme.imdbRating}}</p>
+          <p class="campo">ID no IMDB</p>
+          <p class="valor">{{filme.imdbID}}</p>
         </div>
       </div>
-    </div>
   </ion-content>
 </ion-view>
