@@ -41,7 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', ]
 	.state('tab.dash', {
 		url: '/dash',
 		views: {
-			'tab-dash': {
+			'tab-content': {
 				templateUrl: 'templates/tab-dash.html',
 				controller: 'DashCtrl',
 			},
@@ -51,40 +51,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', ]
 	.state('tab.account', {
 		url: '/account',
 		views: {
-			'tab-account': {
+			'tab-content': {
 				templateUrl: 'templates/tab-account.html',
 				controller: 'AccountCtrl'
-			}
+			},
 		}
 	})
 
     .state('tab.search', {
 		url: '/search',
 		views: {
-			'tab-search': {
+			'tab-content': {
 				templateUrl: 'templates/tab-search.html',
 				controller: 'SearchCtrl'
-			}
+			},
 		}
 	})
 
 	.state('tab.filme', {
 		url: '/filme/:filmeId',
 		views: {
-			'tab-dash': {
+			'tab-content': {
 				templateUrl: 'templates/tab-filme.html',
 				controller: 'FilmeCtrl',
-			}
+			},
 		}
 	})
 
 	.state('tab.horarios', {
 		url: '/horarios/:filmeId',
 		views: {
-			'tab-dash': {
+			'tab-content': {
 				templateUrl: 'templates/tab-horarios.html',
 				controller: 'HorariosCtrl',
-			}
+			},
 		}
 	});
 
