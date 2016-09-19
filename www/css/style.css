@@ -35,3 +35,9 @@
 .dados .valor{
     margin-top: 0
 }
+
+.ver_filme{
+    position: absolute;
+    right: 5%;
+    top: 40%;
+}

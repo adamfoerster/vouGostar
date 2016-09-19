@@ -3,18 +3,19 @@
     <div class="bar bar-header item-input-inset">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="Pesquise pelo título" ng-model="titulo">
+        <input type="search" placeholder="Pesquise pelo título" id="titulo" ng-model="titulo">
       </label>
-      <button class="button button-assertive" ng-click="getFilme(titulo)">
+      <button class="button button-assertive" id="buscar" ng-click="getFilme(titulo)">
         Buscar
       </button>
     </div>
     <div ng-repeat="filme in filmes">
-          <div class="item item-thumbnail-left item-light" ng-show="filme.Title">
-            <img ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
-            <h2>{{filme.Title}}</h2>
-            <p>{{filme.Genre}}</p>
-          </div>
+      <div class="item item-thumbnail-left item-light" ng-show="filme.Title">
+        <img ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
+        <h2>{{filme.Title}}</h2>
+        <p>{{filme.Year}}</p>
+        <a href="#/tab/filme/{{filme.imdbID}}" class="ver_filme"><i class="icon ion-chevron-right placeholder-icon"></i></a>
+      </div>
     </div>
   </ion-content>
 </ion-view>

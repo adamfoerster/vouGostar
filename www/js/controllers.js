@@ -78,7 +78,8 @@ angular.module('starter.controllers', [])
                 console.log(response);
     		});
         }
-	}
+	};
+    document.getElementById('titulo').focus();
 })
 
 .controller('FilmeCtrl', function($scope, $stateParams, Filmes, Omdb, $http, Globais) {
