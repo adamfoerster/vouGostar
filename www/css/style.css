@@ -41,3 +41,11 @@
     right: 5%;
     top: 40%;
 }
+
+#carregando{
+    position: absolute;
+    top:30%;
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+}

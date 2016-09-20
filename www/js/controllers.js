@@ -69,13 +69,22 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SearchCtrl', function($scope, $http, Globais, Omdb) {
+    $scope.carregando = false;
+    $scope.msg = '';
     $scope.getFilme = function(titulo) {
+        $scope.carregando = true;
         $scope.titulo = '';
         console.log($scope.titulo);
         if (titulo.length > 3){
             $http(Globais.getReqSearch(titulo)).then(function successCallback(response){
-    			$scope.filmes = response.data.Search;
-                console.log(response);
+                $scope.carregando = false;
+                if (response.Error == undefined){
+                    $scope.filmes = response.data.Search;
+                    // console.log(response);
+                } else {
+                    $scope.msg = 'Não encontrei nenhum resultado para ' + angular.element('titulo').val();
+                    angular.element('titulo').val('qqq');
+                }
     		});
         }
 	};
