@@ -39,13 +39,25 @@
 .ver_filme{
     position: absolute;
     right: 5%;
-    top: 40%;
+    top: 30%;
 }
 
 #carregando{
     position: absolute;
-    top:30%;
+    top:40%;
     margin: 0 auto;
     display: block;
     width: 100%;
+    padding: 10px;
 }
+
+.item-thumbnail-left{
+    min-height: 140px;
+}
+
+.item-thumbnail-left > img:first-child, .item-thumbnail-left .item-image, .item-thumbnail-left .item-content > img:first-child, .item-thumbnail-left .item-content .item-image{
+    height: auto;
+    max-height: 115px;
+}
+
+#msg{padding: 10px}
