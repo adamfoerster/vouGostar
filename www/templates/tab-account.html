@@ -1,9 +1,12 @@
 <ion-view view-title="Opções">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
+      <ion-toggle ng-model="settings.enableFriends">
         Enable Friends
-    </ion-toggle>
+      </ion-toggle>
     </ion-list>
+    <br />
+    <p class="card padding" ng-click="getFilme('Frozen')">Tentando se conectar ao Omdb...</p>
+    <p class="card padding" >{{filme}}</p>
   </ion-content>
 </ion-view>

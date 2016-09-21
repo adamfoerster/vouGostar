@@ -5,10 +5,42 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{filme.titulo}}">
-  <ion-content class="padding">
-    <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{chat.lastText}}
-    </p>
+  <ion-content>
+      <div class="list card" ng-show="filme.Title">
+
+        <div class="item item-avatar">
+          <img ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
+          <h2>{{filme.Title}}</h2>
+          <p>{{filme.Genre}}</p>
+        </div>
+
+        <div class="item item-body dados">
+          <img class="full-image" ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
+          <p class="campo">Dirigido por</p>
+          <p class="valor">{{filme.Director}}</p>
+          <p class="campo">Escrito por</p>
+          <p class="valor">{{filme.Writer}}</p>
+          <p class="campo">Enredo</p>
+          <p class="valor">{{filme.Plot}}</p>
+          <p class="campo">Lançamento</p>
+          <p class="valor">{{filme.Released}}</p>
+          <p class="campo">Classificação Indicativa</p>
+          <p class="valor">{{filme.Rated}}</p>
+          <p class="campo">Duração</p>
+          <p class="valor">{{filme.Runtime}}</p>
+          <p class="campo">Atores</p>
+          <p class="valor">{{filme.Actors}}</p>
+          <p class="campo">País</p>
+          <p class="valor">{{filme.Country}}</p>
+          <p class="campo">Prêmios</p>
+          <p class="valor">{{filme.Awards}}</p>
+          <p class="campo">Nota no Metacritic</p>
+          <p class="valor">{{filme.Metascore}}</p>
+          <p class="campo">Nota na IMDB</p>
+          <p class="valor">{{filme.imdbRating}}</p>
+          <p class="campo">ID no IMDB</p>
+          <p class="valor">{{filme.imdbID}}</p>
+        </div>
+      </div>
   </ion-content>
 </ion-view>

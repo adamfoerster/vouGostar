@@ -1,29 +1,35 @@
 <ion-view view-title="Vou Gostar?">
   <ion-content class="padding">
     <div class="list" id="filmes">
-      <div class="item item-divider item-balanced ion-happy-outline"> Acho que você vai gostar destes</div>
-      <div class="item item-thumbnail-left" ng-repeat="filme in filmes_vaigostar">
-        <img src="img/{{filme.thumbnail}}">
+      <div class="item item-divider item-balanced ion-happy-outline">
+        Acho que você vai gostar destes</div>
+      <div class="item item-thumbnail-left item-light" ng-repeat="filme in filmes_vaigostar">
+        <img src="{{filme.thumbnail}}">
         <h2>{{filme.titulo}}</h2>
-        <div class="row">
-          <div class="col col-50 col-bottom">
-            <a class="button button-small button-full button-positive ion-clock padding-left" href="#/tab/horarios/{{filme.id}}"> Horários</a>
+        <div class="row no-padding botoes">
+          <div class="col col-50 col-bottom primeiro">
+            <a class="button button-full button-outline button-positive ion-clock" href="#/tab/horarios/{{filme.id}}">
+              Horários</a>
           </div>
-          <div class="col col-50 col-bottom">
-            <a class="button button-small button-full button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}"> Info.</a>
+          <div class="col col-50 col-bottom segundo">
+            <a class="button button-full button-outline button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}">
+              Info.</a>
           </div>
         </div>
       </div>
-      <div class="item item-divider item-assertive ion-sad-outline"> Esses você vai detestar</div>
-      <div class="item item-thumbnail-left" ng-repeat="filme in filmes_nvaigostar">
-        <img src="img/{{filme.thumbnail}}">
+      <div class="item item-divider item-assertive ion-sad-outline">
+        Esses você vai detestar</div>
+      <div class="item item-thumbnail-left item-light" ng-repeat="filme in filmes_nvaigostar">
+        <img src="{{filme.thumbnail}}">
         <h2>{{filme.titulo}}</h2>
-        <div class="row">
-          <div class="col col-50 col-bottom">
-            <button class="button button-small button-full button-positive ion-clock padding-left" href="#/tab/horarios/{{filme.id}}"> Horários</button>
+        <div class="row no-padding botoes">
+          <div class="col col-50 col-bottom primeiro">
+            <a class="button button-full button-outline button-positive ion-clock" href="#/tab/horarios/{{filme.id}}">
+              Horários</a>
           </div>
-          <div class="col col-50 col-bottom">
-            <button class="button button-small button-full button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}"> Info.</button>
+          <div class="col col-50 col-bottom segundo">
+            <a class="button button-full button-outline button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}">
+              Info.</a>
           </div>
         </div>
       </div>
