@@ -17,6 +17,8 @@ angular.module('starter.controllers', [])
         	});
         }
     }
+    // listar todos os filme que a pessoa não vai gostar e verificar se tem
+    // thumbnail e titulo. se não puxa da api
 	$scope.filmes_nvaigostar = Filmes.listar(false);
     for (var i = 0; i < $scope.filmes_nvaigostar.length; i++){
         if ($scope.filmes_nvaigostar[i].thumbnail == undefined || $scope.filmes_nvaigostar[i].titulo == undefined){
@@ -71,6 +73,15 @@ angular.module('starter.controllers', [])
 .controller('SearchCtrl', function($scope, $http, Globais, Omdb) {
     $scope.carregando = false;
     $scope.msg = '';
+
+    $scope.getPoster = function(img){
+        console.log(img);
+        if (img == undefined || img == 'N/A'){
+            return 'img/semposter.png';
+        } else {
+            return img;
+        }
+    }
 
     $scope.getFilme = function(titulo) {
         $scope.carregando = true;

@@ -1,5 +1,76 @@
 angular.module('starter.services', [])
 
+.factory('Globais', function() {
+  var url = "http://www.omdbapi.com/";
+
+  return {
+    getUrl: function() {
+      return url;
+    },
+    getReq: function(id) {
+      return {
+        method: 'GET',
+        url: url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        params: {
+          'i': id,
+          'plot': 'short',
+          'r': 'json',
+        }
+      }
+  },
+    getReqSearch: function(t){
+        return {
+			 method: 'GET',
+			 url: url,
+			 headers: {
+			   'Content-Type': 'application/json',
+			 },
+			 params: {
+				's' : t + '%',
+				'plot' : 'short',
+				'r' : 'json',
+                'type': 'movie'
+			 }
+		}
+    }
+  }
+})
+
+.factory('Omdb', function() {
+
+  var url = "http://www.omdbapi.com/";
+
+  return {
+
+    getFilme: function(t) {
+      var req = {
+        method: 'GET',
+        url: url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        params: {
+          't': t,
+          'plot': 'short',
+          'r': 'json',
+        }
+      }
+      var teste = {};
+      var filme = $http(req).then(function successCallback(response) {
+        console.log(response.data);
+        // export data;
+        this.teste = response.data;
+        return response.data;
+      });
+      console.log(teste);
+      return teste;
+    },
+  }
+})
+
 .factory('Filmes', function() {
   var filmes = [{
     id: 'tt1540011',
@@ -40,7 +111,13 @@ angular.module('starter.services', [])
     id: 'tt1355631',
     titulo: 'Conexão Escobar',
     vaiGostar: true,
-  }];
+}, {
+    id: 'tt5221584',
+    vaiGostar: false,
+},{
+    id: 'tt2005151',
+    vaiGostar: false,
+}];
 
   return {
     listar: function(vaiGostar) {
@@ -48,6 +125,17 @@ angular.module('starter.services', [])
       for (var i = 0; i < filmes.length; i++) {
         var filme = filmes[i];
         if (filme.vaiGostar == vaiGostar) {
+            // if (filme.thumbnail == undefined || filme.titulo == undefined){
+            //     var req = Globais.getReq(filme.id);
+            // 	$http(req).then(function successCallback(response){
+            //         for (var i = 0; i < $scope.filmes_vaigostar.length; i++) {
+            //             if ($scope.filmes_vaigostar[i].id == response.data.imdbID){
+            //                 $scope.filmes_vaigostar[i].thumbnail = response.data.Poster;
+            //                 $scope.filmes_vaigostar[i].titulo = response.data.Title;
+            //             }
+            //         }
+            // 	});
+            // }
           retorno.push(filme);
         }
       }
@@ -64,76 +152,6 @@ angular.module('starter.services', [])
     },
     all: function() {
       return filmes;
-    },
-  }
-})
-
-.factory('Globais', function() {
-  var url = "http://www.omdbapi.com/";
-
-  return {
-    getUrl: function() {
-      return url;
-    },
-    getReq: function(id) {
-      return {
-        method: 'GET',
-        url: url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params: {
-          'i': id,
-          'plot': 'short',
-          'r': 'json',
-        }
-      }
-  },
-    getReqSearch: function(t){
-        return {
-			 method: 'GET',
-			 url: url,
-			 headers: {
-			   'Content-Type': 'application/json',
-			 },
-			 params: {
-				's' : t + '%',
-				'plot' : 'short',
-				'r' : 'json',
-			 }
-		}
-    }
-  }
-})
-
-.factory('Omdb', function() {
-
-  var url = "http://www.omdbapi.com/";
-
-  return {
-
-    getFilme: function(t) {
-      var req = {
-        method: 'GET',
-        url: url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params: {
-          't': t,
-          'plot': 'short',
-          'r': 'json',
-        }
-      }
-      var teste = {};
-      var filme = $http(req).then(function successCallback(response) {
-        console.log(response.data);
-        // export data;
-        this.teste = response.data;
-        return response.data;
-      });
-      console.log(teste);
-      return teste;
     },
   }
 })

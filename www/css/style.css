@@ -38,8 +38,8 @@
 
 .ver_filme{
     position: absolute;
-    right: 5%;
-    top: 30%;
+    right: 0;
+    top: 30px;
 }
 
 #carregando{
