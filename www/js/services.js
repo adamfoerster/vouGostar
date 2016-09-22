@@ -29,7 +29,7 @@ angular.module('starter.services', [])
 					'Content-Type': 'application/json',
 				},
 				params: {
-					's': t + '%',
+					's': '%' + t + '%',
 					'plot': 'short',
 					'r': 'json',
 					'type': 'movie'
@@ -39,7 +39,7 @@ angular.module('starter.services', [])
 	}
 })
 
-.factory('Omdb', function() {
+.factory('Omdb', function($http) {
 
 	var url = "http://www.omdbapi.com/";
 
@@ -71,7 +71,7 @@ angular.module('starter.services', [])
 	}
 })
 
-.factory('Filmes', function() {
+.factory('Filmes', function($http) {
 	var filmes = [{
 		id: 'tt1540011',
 		titulo: 'Bruxa de Blair',
@@ -119,23 +119,42 @@ angular.module('starter.services', [])
 		vaiGostar: false,
 	}];
 
+	var em_cartaz = ['tt2005151', 'tt5221584', 'tt1355631', 'tt1386697', 'tt2660888', 'tt5475002', 'tt4160708', 'tt2709768', 'tt1540011'];
+
 	return {
 		listar: function(vaiGostar) {
 			var retorno = [];
-			for (var i = 0; i < filmes.length; i++) {
+			for (var i = 0; i < em_cartaz.length; i++) {
 				var filme = filmes[i];
+				if (window.localStorage.getItem(filme.id) !== undefined)
+					filme = JSON.parse(window.localStorage.getItem(filme.id));
+
+				// TODO: criar chamada do metodo para verificar se vai gostar
+				if (filme.vaiGostar === undefined)
+					filme.vaiGostar = true;
+
 				if (filme.vaiGostar == vaiGostar) {
-					// if (filme.thumbnail == undefined || filme.titulo == undefined){
-					//     var req = Globais.getReq(filme.id);
-					// 	$http(req).then(function successCallback(response){
-					//         for (var i = 0; i < $scope.filmes_vaigostar.length; i++) {
-					//             if ($scope.filmes_vaigostar[i].id == response.data.imdbID){
-					//                 $scope.filmes_vaigostar[i].thumbnail = response.data.Poster;
-					//                 $scope.filmes_vaigostar[i].titulo = response.data.Title;
-					//             }
-					//         }
-					// 	});
-					// }
+					if (filme.thumbnail === undefined || filme.titulo === undefined){
+					    var req = {
+							method: 'GET',
+							url: "http://www.omdbapi.com/",
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							params: {
+								'i': filme.id,
+								'plot': 'short',
+								'r': 'json',
+							}
+						};
+						$http(req).then(function successCallback(response){
+							if (filme.thumbnail === undefined)
+				                filme.thumbnail = response.data.Poster;
+							if (filme.titulo === undefined)
+				                filme.titulo = response.data.Title;
+							window.localStorage.setItem(filme.id, JSON.stringify(filme));
+						});
+					}
 					retorno.push(filme);
 				}
 			}
