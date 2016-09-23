@@ -12,6 +12,8 @@ angular.module('starter.controllers', [])
                     if ($scope.filmes_vaigostar[i].id == response.data.imdbID){
                         $scope.filmes_vaigostar[i].thumbnail = response.data.Poster;
                         $scope.filmes_vaigostar[i].titulo = response.data.Title;
+                        console.log($scope.filmes_vaigostar[i]);
+                        window.localStorage.setItem($scope.filmes_vaigostar[i].id, JSON.stringify($scope.filmes_vaigostar[i]));
                     }
                 }
         	});
