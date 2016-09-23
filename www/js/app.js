@@ -1,4 +1,42 @@
-// Ionic Starter App
+// banco de dados sqlite ficará nesta variável
+var db = null;
+
+// variáveis e funções globais
+var glb = {
+	url: "http://www.omdbapi.com/",
+	getUrl: function() {
+		return this.url;
+	},
+	getReq: function(id) {
+		return {
+			method: 'GET',
+			url: this.url,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			params: {
+				'i': id,
+				'plot': 'short',
+				'r': 'json',
+			}
+		}
+	},
+	getReqSearch: function(t) {
+		return {
+			method: 'GET',
+			url: this.url,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			params: {
+				's': '%' + t + '%',
+				'plot': 'short',
+				'r': 'json',
+				'type': 'movie'
+			}
+		}
+	}
+}
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
@@ -7,7 +45,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaSQLite) {
+.run(function($ionicPlatform, $cordovaSQLite, Filmes) {
 	$ionicPlatform.ready(function() {
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -20,8 +58,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 			// org.apache.cordova.statusbar required
 			StatusBar.styleDefault();
 		}
-		db = $cordovaSQLite.openDB("vouGostar.db");
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS filmes (id text primary key, titulo text, info text, vai_gostar integer")
+		// db = $cordovaSQLite.openDB("vouGostar.db");
+        // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS filmes (id text primary key, titulo text, info text, vai_gostar integer"));
+
+		// salvar todos os filmes que estão no cinema no localStorage
+		Filmes.salvarLocal();
+
 	});
 })
 

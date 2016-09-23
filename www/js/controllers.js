@@ -1,48 +1,21 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Filmes, Globais, $ionicSideMenuDelegate, $http) {
+.controller('DashCtrl', function($scope, Filmes, $ionicSideMenuDelegate, $http) {
     // listar todos os filme que a pessoa vai gostar e verificar se tem
     // thumbnail e titulo. se não puxa da api
     console.log(window.localStorage);
     $scope.filmes_vaigostar = Filmes.listar(true);
-    for (var i = 0; i < $scope.filmes_vaigostar.length; i++){
-        // if ($scope.filmes_vaigostar[i].thumbnail == undefined || $scope.filmes_vaigostar[i].titulo == undefined){
-        //     var req = Globais.getReq($scope.filmes_vaigostar[i].id);
-        // 	$http(req).then(function successCallback(response){
-        //         for (var i = 0; i < $scope.filmes_vaigostar.length; i++) {
-        //             if ($scope.filmes_vaigostar[i].id == response.data.imdbID){
-        //                 $scope.filmes_vaigostar[i].thumbnail = response.data.Poster;
-        //                 $scope.filmes_vaigostar[i].titulo = response.data.Title;
-        //             }
-        //         }
-        // 	});
-        // }
-    }
+
     // listar todos os filme que a pessoa não vai gostar e verificar se tem
     // thumbnail e titulo. se não puxa da api
 	$scope.filmes_nvaigostar = Filmes.listar(false);
-    for (var i = 0; i < $scope.filmes_nvaigostar.length; i++){
-        // if ($scope.filmes_nvaigostar[i].thumbnail == undefined || $scope.filmes_nvaigostar[i].titulo == undefined){
-        //     var req = Globais.getReq($scope.filmes_nvaigostar[i].id);
-        // 	$http(req).then(function successCallback(response){
-        //         for (var i = 0; i < $scope.filmes_nvaigostar.length; i++) {
-        //             if ($scope.filmes_nvaigostar[i].id == response.data.imdbID){
-        //                 $scope.filmes_nvaigostar[i].thumbnail = response.data.Poster;
-        //                 $scope.filmes_nvaigostar[i].titulo = response.data.Title;
-        //             }
-        //         }
-        // 	});
-        // }
-    }
-	$scope.txt_vaigostar = "Você vai gostar!";
-	$scope.txt_nvaigostar = "Você vai detestar!";
 
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
 	};
 })
 
-.controller('AccountCtrl', function($scope, Omdb, $http, Globais, $cordovaSQLite) {
+.controller('AccountCtrl', function($scope, Omdb, $http, $cordovaSQLite) {
 	$scope.settings = {
 		enableFriends: true
 	};
@@ -69,7 +42,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SearchCtrl', function($scope, $http, Globais, Omdb) {
+.controller('SearchCtrl', function($scope, $http, Omdb) {
     $scope.carregando = false;
     $scope.msg = '';
 
@@ -101,8 +74,8 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('FilmeCtrl', function($scope, $stateParams, Filmes, Omdb, $http, Globais) {
-	var req = Globais.getReq($stateParams.filmeId);
+.controller('FilmeCtrl', function($scope, $stateParams, Filmes, Omdb, $http) {
+	var req = glb.getReq($stateParams.filmeId);
 	$http(req).then(function successCallback(response){
 		$scope.filme = response.data;
         var local = Filmes.get($scope.filme.imdbID);

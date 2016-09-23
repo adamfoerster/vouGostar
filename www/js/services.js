@@ -1,44 +1,5 @@
 angular.module('starter.services', [])
 
-.factory('Globais', function() {
-	var url = "http://www.omdbapi.com/";
-
-	return {
-		getUrl: function() {
-			return url;
-		},
-		getReq: function(id) {
-			return {
-				method: 'GET',
-				url: url,
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				params: {
-					'i': id,
-					'plot': 'short',
-					'r': 'json',
-				}
-			}
-		},
-		getReqSearch: function(t) {
-			return {
-				method: 'GET',
-				url: url,
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				params: {
-					's': '%' + t + '%',
-					'plot': 'short',
-					'r': 'json',
-					'type': 'movie'
-				}
-			}
-		}
-	}
-})
-
 .factory('Omdb', function($http) {
 
 	var url = "http://www.omdbapi.com/";
@@ -125,36 +86,13 @@ angular.module('starter.services', [])
 		listar: function(vaiGostar) {
 			var retorno = [];
 			for (var i = 0; i < em_cartaz.length; i++) {
-				var filme = filmes[i];
-				if (window.localStorage.getItem(filme.id) !== undefined)
-					filme = JSON.parse(window.localStorage.getItem(filme.id));
+				var filme = JSON.parse(window.localStorage.getItem(em_cartaz[i]));
 
 				// TODO: criar chamada do metodo para verificar se vai gostar
 				if (filme.vaiGostar === undefined)
 					filme.vaiGostar = true;
 
 				if (filme.vaiGostar == vaiGostar) {
-					if (filme.thumbnail === undefined || filme.titulo === undefined){
-					    var req = {
-							method: 'GET',
-							url: "http://www.omdbapi.com/",
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							params: {
-								'i': filme.id,
-								'plot': 'short',
-								'r': 'json',
-							}
-						};
-						$http(req).then(function successCallback(response){
-							if (filme.thumbnail === undefined)
-				                filme.thumbnail = response.data.Poster;
-							if (filme.titulo === undefined)
-				                filme.titulo = response.data.Title;
-							window.localStorage.setItem(filme.id, JSON.stringify(filme));
-						});
-					}
 					retorno.push(filme);
 				}
 			}
@@ -180,6 +118,36 @@ angular.module('starter.services', [])
 		},
 		all: function() {
 			return filmes;
+		},
+		// criar um item local para cada um dos filmes em cartaz
+		salvarLocal: function(){
+			for (var i = 0; i < em_cartaz.length; i++){
+				// if(window.localStorage.getItem(em_cartaz[i]) == undefined || window.localStorage.getItem(em_cartaz[i]) == null) {
+					// TODO: faz uma busca no meu servidor. Por enquanto vai pegar o
+					// array de filmes do objeto
+					for (var j = 0; j < filmes.length; j++) {
+						var filme = filmes[j];
+						if (em_cartaz[i] == filme.id){
+							window.localStorage.setItem(filme.id, JSON.stringify(filme));
+							// console.log('adicionando item ' + filme.id);
+
+							// caso não tenha o título ou Poster no meu servidor busca no omdb
+							if (filme.thumbnail === undefined || filme.titulo === undefined){
+								var req = glb.getReq(filme.id);
+								$http(req).then(function successCallback(response){
+									if (filme.thumbnail === undefined)
+						                filme.thumbnail = response.data.Poster;
+									if (filme.titulo === undefined)
+						                filme.titulo = response.data.Title;
+									window.localStorage.setItem(filme.id, JSON.stringify(filme));
+									console.log('atualizando item ' + filme.id);
+								});
+							}
+						}
+					} // end loop filmes
+				// }
+			} // end loop em_cartaz
+			console.log(window.localStorage);
 		},
 	}
 })
