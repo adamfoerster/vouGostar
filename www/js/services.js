@@ -122,30 +122,24 @@ angular.module('starter.services', [])
 		// criar um item local para cada um dos filmes em cartaz
 		salvarLocal: function(){
 			for (var i = 0; i < em_cartaz.length; i++){
-				// if(window.localStorage.getItem(em_cartaz[i]) == undefined || window.localStorage.getItem(em_cartaz[i]) == null) {
-					// TODO: faz uma busca no meu servidor. Por enquanto vai pegar o
-					// array de filmes do objeto
-					for (var j = 0; j < filmes.length; j++) {
-						var filme = filmes[j];
-						if (em_cartaz[i] == filme.id){
-							window.localStorage.setItem(filme.id, JSON.stringify(filme));
-							// console.log('adicionando item ' + filme.id);
-
-							// caso não tenha o título ou Poster no meu servidor busca no omdb
-							if (filme.thumbnail === undefined || filme.titulo === undefined){
-								var req = glb.getReq(filme.id);
-								$http(req).then(function successCallback(response){
-									if (filme.thumbnail === undefined)
-						                filme.thumbnail = response.data.Poster;
-									if (filme.titulo === undefined)
-						                filme.titulo = response.data.Title;
-									window.localStorage.setItem(filme.id, JSON.stringify(filme));
-									console.log('atualizando item ' + filme.id);
-								});
-							}
+                var req = glb.getReq(em_cartaz[i]);
+                $http(req).then(function successCallback(response){
+                    var filme = response.data;
+                    for (var j = 0; j < filmes.length; j++) {
+						var filme_local = filmes[j];
+						if (em_cartaz[i] == filme_local.id){
+                            if (filme_local.thumbnail !== undefined)
+                                filme.thumbnail = filme_local.thumbnail;
+                            if (filme_local.titulo !== undefined)
+                                filme.titulo = filme_local.titulo;
+                            if (filme_local.vai_gostar !== undefined)
+                                filme.vai_gostar = filme_local.vai_gostar;
 						}
 					} // end loop filmes
-				// }
+                    // window.localStorage.setItem(filme.id, JSON.stringify(filme));
+                    // console.log('atualizando item ' + filme.id);
+                });
+                window.localStorage.setItem(filme.id, JSON.stringify(filme));
 			} // end loop em_cartaz
 			console.log(window.localStorage);
 		},
