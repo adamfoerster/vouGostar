@@ -32,29 +32,29 @@ angular.module('starter.services', [])
 	}
 })
 
-.factory('Filmes', function($http) {
+.factory('Filmes', function($http, $ionicLoading) {
 	var filmes = [{
 		id: 'tt1540011',
 		titulo: 'Bruxa de Blair',
-		vaiGostar: false,
+		vai_gostar: false,
 	}, {
 		id: 'tt2709768',
 		titulo: 'Pets - A vida secreta dos bichos',
 		thumbnail: 'img/pets.jpg',
-		vaiGostar: true,
+		vai_gostar: true,
 	}, {
 		id: 'tt4160708',
 		titulo: 'O homem nas trevas',
-		vaiGostar: false,
+		vai_gostar: false,
 	}, {
 		id: 'tt5475002',
 		titulo: 'Um namorado para minha esposa',
 		thumbnail: 'img/namorado.jpg',
-		vaiGostar: false,
+		vai_gostar: false,
 	}, {
 		id: 'tt2660888',
 		titulo: 'Star Trek - Sem Fronteiras',
-		vaiGostar: true,
+		vai_gostar: true,
 		info: "Star Trek Beyond é um filme norte-americano de 2016 dirigido por Justin Lin e escrito por Simon Pegg e Doug Jung. É o décimo terceiro longa-metragem da franquia Star Trek e o terceiro estrelado pelo novo elenco na série reboot. Na história, a tripulação da USS Enterprise é atacada e presa por uma espécia alienígena desconhecida, precisando encontrar um modo de fugir e enfrentar um inimigo que odeia a Federação dos Planetas Unidos.",
 		horarios: [{
 			cinema: 'UCI Palladium',
@@ -67,20 +67,20 @@ angular.module('starter.services', [])
 		id: 'tt1386697',
 		titulo: 'Esquadrão Suicida',
 		thumbnail: 'img/suicide.jpg',
-		vaiGostar: true,
+		vai_gostar: true,
 	}, {
 		id: 'tt1355631',
 		titulo: 'Conexão Escobar',
-		vaiGostar: true,
+		vai_gostar: true,
 	}, {
 		id: 'tt5221584',
-		vaiGostar: false,
+		vai_gostar: false,
 	}, {
 		id: 'tt2005151',
-		vaiGostar: false,
+		vai_gostar: false,
 	}];
 
-	var em_cartaz = ['tt2005151', 'tt5221584', 'tt1355631', 'tt1386697', 'tt2660888', 'tt5475002', 'tt4160708', 'tt2709768', 'tt1540011'];
+	var em_cartaz = glb.getEmCartaz();
 
 	return {
 		listar: function(vaiGostar) {
@@ -88,11 +88,7 @@ angular.module('starter.services', [])
 			for (var i = 0; i < em_cartaz.length; i++) {
 				var filme = JSON.parse(window.localStorage.getItem(em_cartaz[i]));
 
-				// TODO: criar chamada do metodo para verificar se vai gostar
-				if (filme.vaiGostar === undefined)
-					filme.vaiGostar = true;
-
-				if (filme.vaiGostar == vaiGostar) {
+				if (filme.vai_gostar == vaiGostar) {
 					retorno.push(filme);
 				}
 			}
@@ -103,17 +99,10 @@ angular.module('starter.services', [])
             return true;
         },
 		get: function(filmeId) {
-            if(window.localStorage.getItem(filmeId) !== undefined) {
-    			var retorno = [];
-    			for (var i = 0; i < filmes.length; i++) {
-    				var filme = filmes[i];
-    				if (filme.id == filmeId) {
-                        window.localStorage.setItem(filme.id, JSON.stringify(filme));
-    					return filme;
-    				}
-    			}
+            if(window.localStorage.getItem(filmeId) != undefined) {
+    			return JSON.parse(window.localStorage.getItem(filmeId));
             } else {
-                return JSON.parse(window.localStorage.getItem(filmeId));
+                return false;
             }
 		},
 		all: function() {
@@ -122,26 +111,46 @@ angular.module('starter.services', [])
 		// criar um item local para cada um dos filmes em cartaz
 		salvarLocal: function(){
 			for (var i = 0; i < em_cartaz.length; i++){
-                var req = glb.getReq(em_cartaz[i]);
-                $http(req).then(function successCallback(response){
-                    var filme = response.data;
-                    for (var j = 0; j < filmes.length; j++) {
-						var filme_local = filmes[j];
-						if (em_cartaz[i] == filme_local.id){
-                            if (filme_local.thumbnail !== undefined)
-                                filme.thumbnail = filme_local.thumbnail;
-                            if (filme_local.titulo !== undefined)
-                                filme.titulo = filme_local.titulo;
-                            if (filme_local.vai_gostar !== undefined)
-                                filme.vai_gostar = filme_local.vai_gostar;
-						}
-					} // end loop filmes
-                    // window.localStorage.setItem(filme.id, JSON.stringify(filme));
-                    // console.log('atualizando item ' + filme.id);
-                });
-                window.localStorage.setItem(filme.id, JSON.stringify(filme));
+				// vamos checar se já está salvo localmente
+				if (window.localStorage.getItem(em_cartaz[i]) == undefined){
+					var req = glb.getReq(em_cartaz[i]);
+	                $http(req).then(function successCallback(response){
+	                    var filme = response.data;
+	                    for (var j = 0; j < filmes.length; j++) {
+							var filme_local = filmes[j];
+							if (filme.imdbID == filme_local.id){
+								filme.id = filme.imdbID;
+								// ve se tem título em pt
+	                            if (filme_local.titulo != undefined)
+	                                filme.titulo = filme_local.titulo;
+								// operações com poster e miniatura
+								if (filme_local.Poster == 'N/A' || filme_local.Poster == undefined)
+									filme_local.Poster == 'img/semposter.png';
+								if (filme_local.thumbnail != undefined ){
+									filme.thumbnail = filme_local.thumbnail;
+									filme.Poster = filme_local.thumbnail;
+								} else {
+									filme.thumbnail = filme.Poster;
+								}
+								// setar vai_gostar
+								if (filme_local.vai_gostar != undefined)
+	                                filme.vai_gostar = filme_local.vai_gostar;
+								else
+									filme.vai_gostar = false;
+							}
+						} // end loop filmes
+						window.localStorage.setItem(filme.imdbID, JSON.stringify(filme));
+						console.log('carreguei um filme. esperar');
+						setInterval(function(){
+							console.log('esperei 1s');
+							$ionicLoading.hide();
+						}, 1000);
+	                });
+				} else {
+					console.log('item já está salvo na memória');
+					$ionicLoading.hide();
+				}
 			} // end loop em_cartaz
-			console.log(window.localStorage);
 		},
 	}
 })

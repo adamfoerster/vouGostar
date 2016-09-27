@@ -1,43 +1,61 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Filmes, $ionicSideMenuDelegate, $http) {
-    // listar todos os filme que a pessoa vai gostar e verificar se tem
-    // thumbnail e titulo. se não puxa da api
-    console.log(window.localStorage);
-    $scope.filmes_vaigostar = Filmes.listar(true);
+.controller('DashCtrl', function($scope, Filmes, $ionicSideMenuDelegate, $http, $ionicLoading) {
+    $ionicLoading.show({
+        template: 'Carregando...'
+    }).then(function(){
+        // listar todos os filme que a pessoa vai gostar e verificar se tem
+        // thumbnail e titulo. se não puxa da api
+        console.log(window.localStorage);
+        $scope.filmes_vaigostar = Filmes.listar(true);
 
-    // listar todos os filme que a pessoa não vai gostar e verificar se tem
-    // thumbnail e titulo. se não puxa da api
-	$scope.filmes_nvaigostar = Filmes.listar(false);
+        // listar todos os filme que a pessoa não vai gostar e verificar se tem
+        // thumbnail e titulo. se não puxa da api
+    	$scope.filmes_nvaigostar = Filmes.listar(false);
+        $ionicLoading.hide();
+    });
 
 	$scope.toggleLeft = function() {
 		$ionicSideMenuDelegate.toggleLeft();
 	};
+
+    $scope.doRefresh = function() {
+        $scope.filmes_vaigostar = Filmes.listar(true);
+        $scope.filmes_nvaigostar = Filmes.listar(false);
+        $scope.$broadcast('scroll.refreshComplete');
+    };
 })
 
-.controller('AccountCtrl', function($scope, Omdb, $http, $cordovaSQLite) {
+.controller('AccountCtrl', function($scope, Omdb, $http, $cordovaCamera) {
 	$scope.settings = {
 		enableFriends: true
 	};
-    $scope.insert = function(id, titulo, info, vai_gostar) {
-        var query = "INSERT INTO filmes (id, titulo, info, vai_gostar) VALUES (?,?,?,?)";
-        $cordovaSQLite.execute(db, query, [id, titulo, info, vai_gostar]).then(function(res) {
-            console.log("INSERT ID -> " + res.insertId);
-        }, function (err) {
-            console.error(err);
-        });
+
+    $scope.debugar = function() {
+        $scope.debug = window.localStorage;
     }
 
-    $scope.select = function() {
-        var query = "SELECT * FROM filmes";
-        $cordovaSQLite.execute(db, query, [lastname]).then(function(res) {
-            if(res.rows.length > 0) {
-                console.log("SELECTED -> " + res.rows.item(0).titulo + " " + res.rows.item(0).info);
-            } else {
-                console.log("Nenhum resultado encontrado");
-            }
-        }, function (err) {
-            console.error(err);
+    $scope.limpar = function(){
+        window.localStorage = [];
+    }
+
+    $scope.takePicture = function() {
+        var options = {
+            quality : 100,
+            destinationType : Camera.DestinationType.DATA_URL,
+            sourceType : Camera.PictureSourceType.CAMERA,
+            allowEdit : false,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 400,
+            targetHeight: 400,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+            // An error occured. Show a message to the user
         });
     }
 })
@@ -58,7 +76,7 @@ angular.module('starter.controllers', [])
         $scope.carregando = true;
 
         if (titulo.length > 3){
-            $http(Globais.getReqSearch(titulo)).then(function successCallback(response){
+            $http(glb.getReqSearch(titulo)).then(function successCallback(response){
                 $scope.carregando = false;
 
                 if (response.data.Response == "True"){

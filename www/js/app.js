@@ -35,7 +35,10 @@ var glb = {
 				'type': 'movie'
 			}
 		}
-	}
+	},
+	getEmCartaz: function(){
+		return ['tt2005151', 'tt5221584', 'tt1355631', 'tt1386697', 'tt2660888', 'tt5475002', 'tt4160708', 'tt2709768', 'tt1540011'];
+	},
 }
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
