@@ -3,10 +3,14 @@
         <ion-refresher pulling-text="Puxe para recarregar..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
             <ion-item class="item item-divider item-balanced ion-happy-outline">Acho que você vai gostar destes</ion-item>
-            <ion-item class="item item-thumbnail-left item-light" ng-repeat="filme in filmes_vaigostar">
-                <img src="{{filme.thumbnail}}" ng-show="filme.thumbnail">
-                <h2>{{filme.titulo}}</h2>
-                <div class="row no-padding botoes">
+            <ion-item class="item item-light filme" ng-repeat="filme in filmes_vaigostar" >
+                <div class="back" style="background-image: url({{filme.thumbnail}});"></div>
+                <a href="#/tab/filme/{{filme.id}}" class="filme_link">
+                    <img src="{{filme.thumbnail}}" ng-show="filme.thumbnail" >
+                    <h2>{{filme.titulo}}</h2>
+                </a>
+
+                <!-- <div class="row no-padding botoes">
                   <div class="col col-25 col-bottom primeiro">
                     <a class="button button-full button-positive ion-clock" href="#/tab/horarios/{{filme.id}}"> </a>
                   </div>
@@ -26,7 +30,7 @@
                           </div>
                       </div>
                   </div>
-                </div>
+                </div> -->
             </ion-item>
         </ion-list>
         <ion-list>
@@ -34,7 +38,7 @@
             <ion-item class="item item-thumbnail-left item-light" ng-repeat="filme in filmes_nvaigostar">
               <img src="{{filme.thumbnail}}">
               <h2>{{filme.titulo}}</h2>
-              <div class="row no-padding botoes">
+              <!-- <div class="row no-padding botoes">
                 <div class="col col-50 col-bottom primeiro">
                   <a class="button button-full button-outline button-positive ion-clock" href="#/tab/horarios/{{filme.id}}">
                     Horários</a>
@@ -43,7 +47,7 @@
                   <a class="button button-full button-outline button-positive ion-film-marker" href="#/tab/filme/{{filme.id}}">
                     Info.</a>
                 </div>
-              </div>
+              </div> -->
           </ion-item>
         </ion-list>
     </ion-content>

@@ -140,15 +140,10 @@ angular.module('starter.services', [])
 							}
 						} // end loop filmes
 						window.localStorage.setItem(filme.imdbID, JSON.stringify(filme));
-						console.log('carreguei um filme. esperar');
-						setInterval(function(){
-							console.log('esperei 1s');
-							$ionicLoading.hide();
-						}, 1000);
+						loaded_qtde++;
 	                });
 				} else {
-					console.log('item já está salvo na memória');
-					$ionicLoading.hide();
+					loaded_qtde++;
 				}
 			} // end loop em_cartaz
 		},

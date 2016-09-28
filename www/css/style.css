@@ -1,7 +1,38 @@
 /* Empty. Add your own CSS if you like */
+.filme {
+    position: relative;
+    padding: 0;
+}
+.back{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*-khtml-opacity:.50;
+    -moz-opacity:.50;
+    -ms-filter:'alpha(opacity=50)';
+    filter:alpha(opacity=50);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);*/
+    opacity:.20;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-color: rgba(255, 255, 255, 0.5);
+}
 
-#filmes button {
-  margin: 0
+.filme_link{
+    display: block;
+    height: 100px;
+    width: 400px;
+    opacity: 2;
+}
+
+.filme_link h2, .filme_link img{ float: left}
+
+.filme_link img{
+    width: 80px;
+    max-height: 100px;
 }
 
 .peq {
@@ -14,14 +45,6 @@
 
 .no-padding {
   padding: 0
-}
-
-.botoes .primeiro {
-  padding: 0 10px 0 0
-}
-
-.botoes .segundo {
-  padding: 0 0 0 5px
 }
 
 .dados{
@@ -51,13 +74,13 @@
     padding: 10px;
 }
 
-.item-thumbnail-left{
+/*.item-thumbnail-left{
     min-height: 140px;
 }
 
 .item-thumbnail-left > img:first-child, .item-thumbnail-left .item-image, .item-thumbnail-left .item-content > img:first-child, .item-thumbnail-left .item-content .item-image{
     height: auto;
     max-height: 115px;
-}
+}*/
 
 #msg{padding: 10px}

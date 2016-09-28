@@ -4,15 +4,18 @@ angular.module('starter.controllers', [])
     $ionicLoading.show({
         template: 'Carregando...'
     }).then(function(){
-        // listar todos os filme que a pessoa vai gostar e verificar se tem
-        // thumbnail e titulo. se não puxa da api
-        console.log(window.localStorage);
-        $scope.filmes_vaigostar = Filmes.listar(true);
-
-        // listar todos os filme que a pessoa não vai gostar e verificar se tem
-        // thumbnail e titulo. se não puxa da api
-    	$scope.filmes_nvaigostar = Filmes.listar(false);
-        $ionicLoading.hide();
+        // espera carregar pelo menos todos os filmes em cartaz menos dois
+        $scope.carregando = setInterval(function(){
+            if (loaded_qtde >= load_qtde - 2){
+                // listar todos os filme que a pessoa vai gostar
+                $scope.filmes_vaigostar = Filmes.listar(true);
+                // listar todos os filme que a pessoa não vai gostar
+            	$scope.filmes_nvaigostar = Filmes.listar(false);
+                $ionicLoading.hide();
+                clearInterval($scope.carregando);
+            }
+            $ionicLoading.hide();
+        }, 1000);
     });
 
 	$scope.toggleLeft = function() {
