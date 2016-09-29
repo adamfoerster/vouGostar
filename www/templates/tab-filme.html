@@ -4,7 +4,7 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{filme.titulo}}">
+<ion-view view-title="{{filme.Title}}">
   <ion-content>
       <div class="list card" ng-show="filme.Title">
 
@@ -34,12 +34,17 @@
           <p class="valor">{{filme.Country}}</p>
           <p class="campo">Prêmios</p>
           <p class="valor">{{filme.Awards}}</p>
-          <p class="campo">Nota no Metacritic</p>
+          <!-- <p class="campo">Nota no Metacritic</p>
           <p class="valor">{{filme.Metascore}}</p>
           <p class="campo">Nota na IMDB</p>
-          <p class="valor">{{filme.imdbRating}}</p>
+          <p class="valor">{{filme.imdbRating}}</p> -->
           <p class="campo">ID no IMDB</p>
           <p class="valor">{{filme.imdbID}}</p>
+          <div class="row">
+              <div class="col-33">IMDB<br />{{filme.imdbRating}}</div>
+              <div class="col-33">Metacritic<br />{{filme.Metascore}}</div>
+              <div class="col-33">Tomatoes<br />{{filme.Tomatoes}}</div>
+          </div>
         </div>
       </div>
   </ion-content>

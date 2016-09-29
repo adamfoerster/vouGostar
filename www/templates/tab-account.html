@@ -6,7 +6,10 @@
       </ion-toggle>
     </ion-list>
     <br />
-    <p class="card padding" ng-click="getFilme('Frozen')">Tentando se conectar ao Omdb...</p>
-    <p class="card padding" >{{filme}}</p>
+    <p class="card padding" >{{debug}}</p>
+    <button class="button button-full" ng-click="debugar()">localStorage</p>
+    <button class="button button-full" ng-click="limpar()">limpar</p>
+    <button class="button button-full" ng-click="takePicture()">Tirar Foto</p>
+    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
   </ion-content>
 </ion-view>
