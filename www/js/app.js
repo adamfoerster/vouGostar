@@ -30,9 +30,10 @@ var glb = {
 			},
 			params: {
 				's': '%' + t + '%',
-				'plot': 'short',
+				'plot': 'full',
 				'r': 'json',
-				'type': 'movie'
+				'type': 'movie',
+				'tomatoes': 'true',
 			}
 		}
 	},
