@@ -6,7 +6,7 @@ angular.module('starter.controllers', [])
     }).then(function(){
         // espera carregar pelo menos todos os filmes em cartaz menos dois
         $scope.carregando = setInterval(function(){
-            if (loaded_qtde >= load_qtde - 2){
+            if (loaded_qtde >= load_qtde){
                 // listar todos os filme que a pessoa vai gostar
                 $scope.filmes_vaigostar = Filmes.listar(true);
                 // listar todos os filme que a pessoa não vai gostar
@@ -23,9 +23,17 @@ angular.module('starter.controllers', [])
 	};
 
     $scope.doRefresh = function() {
-        $scope.filmes_vaigostar = Filmes.listar(true);
-        $scope.filmes_nvaigostar = Filmes.listar(false);
-        $scope.$broadcast('scroll.refreshComplete');
+        window.localStorage.clear();
+        $scope.carregando = setInterval(function(){
+            if (loaded_qtde >= load_qtde){
+                // listar todos os filme que a pessoa vai gostar
+                $scope.filmes_vaigostar = Filmes.listar(true);
+                // listar todos os filme que a pessoa não vai gostar
+            	$scope.filmes_nvaigostar = Filmes.listar(false);
+                $scope.$broadcast('scroll.refreshComplete');
+                clearInterval($scope.carregando);
+            }
+        }, 1000);
     };
 })
 
@@ -39,7 +47,7 @@ angular.module('starter.controllers', [])
     }
 
     $scope.limpar = function(){
-        window.localStorage = [];
+        window.localStorage.clear();
     }
 
     $scope.takePicture = function() {

@@ -76,6 +76,9 @@ angular.module('starter.services', [])
 		id: 'tt5221584',
 		vai_gostar: false,
 	}, {
+		id: 'tt3774114',
+		vai_gostar: true,
+	}, {
 		id: 'tt2005151',
 		vai_gostar: false,
 	}];
@@ -116,16 +119,20 @@ angular.module('starter.services', [])
 					var req = glb.getReq(em_cartaz[i]);
 	                $http(req).then(function successCallback(response){
 	                    var filme = response.data;
+						var encontrou = false;
 	                    for (var j = 0; j < filmes.length; j++) {
 							var filme_local = filmes[j];
 							if (filme.imdbID == filme_local.id){
+								encontrou = true;
 								filme.id = filme.imdbID;
 								// ve se tem título em pt
-	                            if (filme_local.titulo != undefined)
-	                                filme.titulo = filme_local.titulo;
+	                            if (filme_local.titulo != undefined){
+									filme.titulo = filme_local.titulo;
+									filme.Title = filme_local.titulo;
+								}
 								// operações com poster e miniatura
-								if (filme_local.Poster == 'N/A' || filme_local.Poster == undefined)
-									filme_local.Poster == 'img/semposter.png';
+								if (filme.Poster == 'N/A' || filme.Poster == undefined)
+									filme.Poster == 'img/semposter.png';
 								if (filme_local.thumbnail != undefined ){
 									filme.thumbnail = filme_local.thumbnail;
 									filme.Poster = filme_local.thumbnail;
@@ -139,6 +146,8 @@ angular.module('starter.services', [])
 									filme.vai_gostar = false;
 							}
 						} // end loop filmes
+						if (encontrou == false)
+							filme.vai_gostar == false;
 						window.localStorage.setItem(filme.imdbID, JSON.stringify(filme));
 						loaded_qtde++;
 	                });
