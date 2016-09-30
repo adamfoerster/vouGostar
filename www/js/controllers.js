@@ -11,7 +11,9 @@ angular.module('starter.controllers', [])
                 $scope.filmes_vaigostar = Filmes.listar(true);
                 // listar todos os filme que a pessoa não vai gostar
             	$scope.filmes_nvaigostar = Filmes.listar(false);
+
                 $ionicLoading.hide();
+                document.querySelectorAll('.corpo').width = document.querySelector('.item').clientWidth - 100;
                 clearInterval($scope.carregando);
             }
             $ionicLoading.hide();
@@ -35,9 +37,10 @@ angular.module('starter.controllers', [])
             }
         }, 1000);
     };
+
 })
 
-.controller('AccountCtrl', function($scope, Omdb, $http, $cordovaCamera) {
+.controller('AccountCtrl', function($scope, $http, $cordovaCamera) {
 	$scope.settings = {
 		enableFriends: true
 	};
@@ -71,7 +74,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SearchCtrl', function($scope, $http, Omdb) {
+.controller('SearchCtrl', function($scope, $http) {
     $scope.carregando = false;
     $scope.msg = '';
 
@@ -103,7 +106,7 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('FilmeCtrl', function($scope, $stateParams, Filmes, Omdb, $http) {
+.controller('FilmeCtrl', function($scope, $stateParams, Filmes, $http) {
 	var req = glb.getReq($stateParams.filmeId);
 	$http(req).then(function successCallback(response){
 		$scope.filme = response.data;

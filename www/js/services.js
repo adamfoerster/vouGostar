@@ -1,37 +1,5 @@
 angular.module('starter.services', [])
 
-.factory('Omdb', function($http) {
-
-	var url = "http://www.omdbapi.com/";
-
-	return {
-
-		getFilme: function(t) {
-			var req = {
-				method: 'GET',
-				url: url,
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				params: {
-					't': t,
-					'plot': 'short',
-					'r': 'json',
-				}
-			}
-			var teste = {};
-			var filme = $http(req).then(function successCallback(response) {
-				console.log(response.data);
-				// export data;
-				this.teste = response.data;
-				return response.data;
-			});
-			console.log(teste);
-			return teste;
-		},
-	}
-})
-
 .factory('Filmes', function($http, $ionicLoading) {
 	var filmes = [{
 		id: 'tt1540011',
