@@ -18,17 +18,26 @@
     overflow: hidden;
 
 }
-
-.filme_link{
+.gosta .filme_link{
     display: block;
     height: 100px;
     width: auto;
-    background-color: rgba(228, 33, 18, 0.8);
+    background-color: rgba(40, 165, 76, 0.5);
+}
+
+.detesta .filme_link{
+    display: block;
+    height: 100px;
+    width: auto;
+    background-color: rgba(228, 33, 18, 0.5);
 }
 
 .filme_link .corpo, .filme_link img{ float: left}
 
-.corpo{color:#fff}
+.corpo{
+    color:#fff;
+    text-shadow: 1px 1px #000;
+}
 
 .corpo h2{
     color:#fff;
