@@ -13,7 +13,11 @@ angular.module('starter.controllers', [])
             	$scope.filmes_nvaigostar = Filmes.listar(false);
 
                 $ionicLoading.hide();
-                document.querySelectorAll('.corpo').width = document.querySelector('.item').clientWidth - 100;
+                angular.forEach(document.querySelectorAll('.corpo'), function(obj_dom){
+                    var tam = (document.querySelector('.item').clientWidth - 100) + 'px';
+                    obj_dom.style.width = tam;
+                    console.log(tam);
+                });
                 clearInterval($scope.carregando);
             }
             $ionicLoading.hide();
@@ -26,6 +30,7 @@ angular.module('starter.controllers', [])
 
     $scope.doRefresh = function() {
         window.localStorage.clear();
+        Filmes.salvarLocal();
         $scope.carregando = setInterval(function(){
             if (loaded_qtde >= load_qtde){
                 // listar todos os filme que a pessoa vai gostar
@@ -37,6 +42,19 @@ angular.module('starter.controllers', [])
             }
         }, 1000);
     };
+
+    // arrumar a largura dos títulos
+    $scope.largura = setInterval(function(){
+        let tam = (document.querySelector('.item').clientWidth - 90) + 'px';
+        let corpos = document.querySelectorAll('.corpo');
+        if (corpos.length == loaded_qtde){
+            angular.forEach(corpos, function(corpo){
+                corpo.style.width = tam;
+                console.log(tam);
+            });
+            clearInterval($scope.largura);
+        }
+    },1000);
 
 })
 
