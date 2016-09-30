@@ -4,9 +4,6 @@
     padding: 0;
 }
 .back{
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
     width: 100%;
     height: 100px;
     /*-khtml-opacity:.50;
@@ -26,12 +23,17 @@
     display: block;
     height: 100px;
     width: auto;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(228, 33, 18, 0.8);
 }
 
 .filme_link .corpo, .filme_link img{ float: left}
 
-.corpo{color:#555}
+.corpo{color:#fff}
+
+.corpo h2{
+    color:#fff;
+    font-weight: bold;
+}
 
 .filme_link img{
     width: 80px;
