@@ -66,6 +66,45 @@ angular.module('starter.services', [])
 			return retorno;
 		},
         set: function(filme) {
+			// vamos procurar localmente os filmes
+			let encontrou = false;
+			console.log('set');
+			console.log(filme);
+			for (let j = 0; j < filmes.length; j++) {
+				var filme_local = filmes[j];
+				if (filme.imdbID == filme_local.id){
+					encontrou = true;
+					filme.id = filme.imdbID;
+					// ve se tem título em pt
+					if (filme_local.titulo != undefined){
+						filme.titulo = filme_local.titulo;
+						filme.Title = filme_local.titulo;
+					}
+					// operações com poster e miniatura
+					if (filme.Poster == 'N/A' || filme.Poster == undefined)
+						filme.Poster == 'img/semposter.png';
+					if (filme_local.thumbnail != undefined ){
+						filme.thumbnail = filme_local.thumbnail;
+						filme.Poster = filme_local.thumbnail;
+					}
+					// setar vai_gostar
+					if (filme_local.vai_gostar != undefined)
+						filme.vai_gostar = filme_local.vai_gostar;
+				}
+			}
+			// se não encontrou localmente preenche com os valores da API
+			if (encontrou == false){
+				filme.id = filme.imdbID;
+				if (filme.Poster == 'N/A')
+					filme.Poster = 'img/semposter.png';
+				if (filme.thumbnail == undefined)
+					filme.thumbnail = filme.Poster;
+				if (filme.titulo == undefined)
+					filme.titulo = filme.Title;
+				if (filme.vai_gostar == undefined)
+					filme.vai_gostar = false;
+			}
+
             window.localStorage.setItem(filme.id, JSON.stringify(filme));
             return true;
         },
@@ -88,7 +127,7 @@ angular.module('starter.services', [])
 	                $http(req).then(function successCallback(response){
 	                    var filme = response.data;
 						var encontrou = false;
-	                    for (var j = 0; j < filmes.length; j++) {
+	                    for (let j = 0; j < filmes.length; j++) {
 							var filme_local = filmes[j];
 							if (filme.imdbID == filme_local.id){
 								encontrou = true;

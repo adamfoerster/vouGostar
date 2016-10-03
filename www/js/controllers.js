@@ -49,7 +49,7 @@ angular.module('starter.controllers', [])
     $scope.largura = function (){
         let intervalo = setInterval(function(){
             // console.log('largura');
-            let tam = (document.querySelector('.item').clientWidth - 90) + 'px';
+            let tam = (document.querySelector('.item').clientWidth - 110) + 'px';
             let corpos = document.querySelectorAll('.col_titulo');
             console.log('corpos:' + corpos.length + 'loaded'+ loaded_qtde);
             if (corpos.length == loaded_qtde){
@@ -98,17 +98,9 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SearchCtrl', function($scope, $http) {
+.controller('SearchCtrl', function($scope, $http, Filmes) {
     $scope.carregando = false;
     $scope.msg = '';
-
-    $scope.getPoster = function(img){
-        if (img == undefined || img == 'N/A'){
-            return 'img/semposter.png';
-        } else {
-            return img;
-        }
-    }
 
     $scope.getFilme = function(titulo) {
         $scope.carregando = true;
@@ -116,9 +108,20 @@ angular.module('starter.controllers', [])
         if (titulo.length > 3){
             $http(glb.getReqSearch(titulo)).then(function successCallback(response){
                 $scope.carregando = false;
-
+                $scope.filmes = [];
                 if (response.data.Response == "True"){
-                    $scope.filmes = response.data.Search;
+                     let resultados = response.data.Search;
+                     for (let i = 0; i < resultados.length; i++){
+                         let filme = Filmes.get(resultados[i].imdbID);
+                         console.log(filme);
+                         if (filme == false){
+                             Filmes.set(resultados[i]);
+                             filme = Filmes.get(resultados[i].imdbID);
+                             console.log('get');
+                             console.log(filme);
+                         }
+                         $scope.filmes.push(filme);
+                     }
                 } else {
                     $scope.filmes = [];
                     $scope.msg = 'Não encontrei nenhum resultado para ' + document.getElementById('titulo').value;

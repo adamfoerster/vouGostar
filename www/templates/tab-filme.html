@@ -16,18 +16,30 @@
 
         <div class="item item-body dados">
           <img class="full-image" ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
+          <div class="card">
+              <div class="row">
+                  <div class="col-33 text-center">Lançamento<br />{{filme.Released}}</div>
+                  <div class="col-33 text-center">Clas. Ind.<br />{{filme.Rated}}</div>
+                  <div class="col-33 text-center">Duração<br />{{filme.Runtime}}</div>
+              </div>
+          </div>
+          <p>Já assistiu esse filme?</p>
+          <div class="button-bar">
+              <a class="button button-full button-balanced"><i class="ion-happy-outline"></i> Gostei</a>
+              <a class="button button-full button-assertive"><i class="ion-sad-outline"></i> Detestei</a>
+          </div>
           <p class="campo">Dirigido por</p>
           <p class="valor">{{filme.Director}}</p>
           <p class="campo">Escrito por</p>
           <p class="valor">{{filme.Writer}}</p>
           <p class="campo">Enredo</p>
           <p class="valor">{{filme.Plot}}</p>
-          <p class="campo">Lançamento</p>
+          <!-- <p class="campo">Lançamento</p>
           <p class="valor">{{filme.Released}}</p>
           <p class="campo">Classificação Indicativa</p>
           <p class="valor">{{filme.Rated}}</p>
           <p class="campo">Duração</p>
-          <p class="valor">{{filme.Runtime}}</p>
+          <p class="valor">{{filme.Runtime}}</p> -->
           <p class="campo">Atores</p>
           <p class="valor">{{filme.Actors}}</p>
           <p class="campo">País</p>
@@ -40,10 +52,12 @@
           <p class="valor">{{filme.imdbRating}}</p> -->
           <p class="campo">ID no IMDB</p>
           <p class="valor">{{filme.imdbID}}</p>
-          <div class="row">
-              <div class="col-33">IMDB<br />{{filme.imdbRating}}</div>
-              <div class="col-33">Metacritic<br />{{filme.Metascore}}</div>
-              <div class="col-33">Tomatoes<br />{{filme.Tomatoes}}</div>
+          <div class="card">
+              <div class="row">
+                  <div class="col-33 text-center">IMDB<br />{{filme.imdbRating}}</div>
+                  <div class="col-33 text-center">Metacritic<br />{{filme.Metascore}}</div>
+                  <div class="col-33 text-center">Tomatoes<br />{{filme.Tomatoes}}</div>
+              </div>
           </div>
         </div>
       </div>
