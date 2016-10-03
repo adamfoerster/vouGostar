@@ -29,6 +29,7 @@ angular.module('starter.controllers', [])
 	};
 
     $scope.doRefresh = function() {
+        loaded_qtde = 0;
         window.localStorage.clear();
         Filmes.salvarLocal();
         $scope.carregando = setInterval(function(){
@@ -39,23 +40,28 @@ angular.module('starter.controllers', [])
             	$scope.filmes_nvaigostar = Filmes.listar(false);
                 $scope.$broadcast('scroll.refreshComplete');
                 clearInterval($scope.carregando);
+                $scope.largura();
             }
         }, 1000);
     };
 
     // arrumar a largura dos títulos
-    $scope.largura = setInterval(function(){
-        let tam = (document.querySelector('.item').clientWidth - 90) + 'px';
-        let corpos = document.querySelectorAll('.corpo');
-        if (corpos.length == loaded_qtde){
-            angular.forEach(corpos, function(corpo){
-                corpo.style.width = tam;
-                console.log(tam);
-            });
-            clearInterval($scope.largura);
-        }
-    },1000);
-
+    $scope.largura = function (){
+        let intervalo = setInterval(function(){
+            // console.log('largura');
+            let tam = (document.querySelector('.item').clientWidth - 90) + 'px';
+            let corpos = document.querySelectorAll('.col_titulo');
+            console.log('corpos:' + corpos.length + 'loaded'+ loaded_qtde);
+            if (corpos.length == loaded_qtde){
+                angular.forEach(corpos, function(corpo){
+                    corpo.style.width = tam;
+                    console.log(tam);
+                });
+                clearInterval(intervalo);
+            }
+        },1000);
+    }
+    $scope.largura();
 })
 
 .controller('AccountCtrl', function($scope, $http, $cordovaCamera) {

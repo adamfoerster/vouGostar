@@ -1,4 +1,4 @@
-/* Empty. Add your own CSS if you like */
+/* Dash Principal */
 .filme {
     position: relative;
     padding: 0;
@@ -6,23 +6,20 @@
 .back{
     width: 100%;
     height: 100px;
-    /*-khtml-opacity:.50;
-    -moz-opacity:.50;
-    -ms-filter:'alpha(opacity=50)';
-    filter:alpha(opacity=50);
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);*/
-    /*opacity:.20;*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     overflow: hidden;
-
+}
+.col_thumb{
+    max-width: 80px;
 }
 .gosta .filme_link{
     display: block;
     height: 100px;
     width: auto;
     background-color: rgba(40, 165, 76, 0.5);
+    text-decoration: none;
 }
 
 .detesta .filme_link{
@@ -30,9 +27,8 @@
     height: 100px;
     width: auto;
     background-color: rgba(228, 33, 18, 0.5);
+    text-decoration: none;
 }
-
-.filme_link .corpo, .filme_link img{ float: left}
 
 .corpo{
     color:#fff;
@@ -48,6 +44,24 @@
     width: 80px;
     max-height: 100px;
 }
+
+/* Estilos da tela de pesquisa*/
+
+.card .col_thumb{
+    float: left;
+    max-width: 100px;
+}
+
+.card .col_titulo h2{
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+.card .col_titulo span{
+
+}
+
+/* Estilos Gerais */
 
 .peq {
   font-size: 0.75em
@@ -73,12 +87,6 @@
     margin-top: 0
 }
 
-.ver_filme{
-    position: absolute;
-    right: 0;
-    top: 30px;
-}
-
 #carregando{
     position: absolute;
     top:40%;
@@ -87,14 +95,5 @@
     width: 100%;
     padding: 10px;
 }
-
-/*.item-thumbnail-left{
-    min-height: 140px;
-}
-
-.item-thumbnail-left > img:first-child, .item-thumbnail-left .item-image, .item-thumbnail-left .item-content > img:first-child, .item-thumbnail-left .item-content .item-image{
-    height: auto;
-    max-height: 115px;
-}*/
 
 #msg{padding: 10px}

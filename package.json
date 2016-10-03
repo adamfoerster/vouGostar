@@ -1,6 +1,6 @@
 {
   "name": "vouGostar",
-  "version": "0.3.0",
+  "version": "0.3.3",
   "description": "vouGostar: recomendações inteligentes para o cinema",
   "dependencies": {
     "gulp": "^3.5.6",
