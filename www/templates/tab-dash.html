@@ -3,34 +3,50 @@
         <ion-refresher pulling-text="Puxe para recarregar..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list class="card">
             <ion-item class="item item-divider item-balanced ion-happy-outline">Acho que você vai gostar destes</ion-item>
-            <ion-item class="item item-light filme" ng-repeat="filme in filmes_vaigostar" >
+            <ion-item class="item item-light filme gosta" ng-repeat="filme in filmes_vaigostar" >
                 <div class="back" style="background-image: url({{filme.thumbnail}});">
-                    <a href="#/tab/filme/{{filme.id}}" class="filme_link">
-                        <img src="{{filme.thumbnail}}" ng-show="filme.thumbnail" >
-                        <div class="corpo padding">
-                            <h2>{{filme.Title}}</h2>
-                            <span class="peq">{{filme.Genre}}</span><br />
-                            <span class="peq">Por {{filme.Director}}</span><!-- <br />
-                            <span class="peq">Com {{filme.Actors}}</span> -->
+                    <div class="row no-padding">
+                        <div class="col no-padding col_thumb">
+                            <a href="#/tab/filme/{{filme.id}}" class="filme_link">
+                                <img src="{{filme.thumbnail}}" ng-show="filme.thumbnail" >
+                            </a>
                         </div>
-                    </a>
+                        <div class="col no-padding col_titulo">
+                            <a href="#/tab/filme/{{filme.id}}" class="filme_link">
+                                <div class="corpo padding">
+                                    <h2>{{filme.Title}}</h2>
+                                    <span class="peq">{{filme.Genre}}</span><br />
+                                    <span class="peq">Por {{filme.Director}}</span><!-- <br />
+                                    <span class="peq">Com {{filme.Actors}}</span> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </ion-item>
         </ion-list>
         <br />
         <ion-list class="card">
             <ion-item class="item item-divider item-assertive ion-sad-outline">Esses você vai detestar</ion-item>
-            <ion-item class="item item-light filme" ng-repeat="filme in filmes_nvaigostar" >
+            <ion-item class="item item-light filme detesta" ng-repeat="filme in filmes_nvaigostar" >
                 <div class="back" style="background-image: url({{filme.thumbnail}});">
-                    <a href="#/tab/filme/{{filme.id}}" class="filme_link">
-                        <img src="{{filme.thumbnail}}" ng-show="filme.thumbnail" >
-                        <div class="corpo padding">
-                            <h2>{{filme.Title}}</h2>
-                            <span class="peq">{{filme.Genre}}</span><br />
-                            <span class="peq">Por {{filme.Director}}</span><!-- <br />
-                            <span class="peq">Com {{filme.Actors}}</span> -->
+                    <div class="row no-padding">
+                        <div class="col no-padding col_thumb">
+                            <a href="#/tab/filme/{{filme.id}}" class="filme_link">
+                                <img src="{{filme.thumbnail}}" ng-show="filme.thumbnail" >
+                            </a>
                         </div>
-                    </a>
+                        <div class="col no-padding col_titulo">
+                            <a href="#/tab/filme/{{filme.id}}" class="filme_link">
+                                <div class="corpo padding">
+                                    <h2>{{filme.Title}}</h2>
+                                    <span class="peq">{{filme.Genre}}</span><br />
+                                    <span class="peq">Por {{filme.Director}}</span><!-- <br />
+                                    <span class="peq">Com {{filme.Actors}}</span> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </ion-item>
         </ion-list>

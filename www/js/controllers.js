@@ -11,7 +11,13 @@ angular.module('starter.controllers', [])
                 $scope.filmes_vaigostar = Filmes.listar(true);
                 // listar todos os filme que a pessoa não vai gostar
             	$scope.filmes_nvaigostar = Filmes.listar(false);
+
                 $ionicLoading.hide();
+                angular.forEach(document.querySelectorAll('.corpo'), function(obj_dom){
+                    var tam = (document.querySelector('.item').clientWidth - 100) + 'px';
+                    obj_dom.style.width = tam;
+                    console.log(tam);
+                });
                 clearInterval($scope.carregando);
             }
             $ionicLoading.hide();
@@ -23,7 +29,9 @@ angular.module('starter.controllers', [])
 	};
 
     $scope.doRefresh = function() {
+        loaded_qtde = 0;
         window.localStorage.clear();
+        Filmes.salvarLocal();
         $scope.carregando = setInterval(function(){
             if (loaded_qtde >= load_qtde){
                 // listar todos os filme que a pessoa vai gostar
@@ -32,18 +40,51 @@ angular.module('starter.controllers', [])
             	$scope.filmes_nvaigostar = Filmes.listar(false);
                 $scope.$broadcast('scroll.refreshComplete');
                 clearInterval($scope.carregando);
+                $scope.largura();
             }
         }, 1000);
     };
+
+    // arrumar a largura dos títulos
+    $scope.largura = function (){
+        let intervalo = setInterval(function(){
+            // console.log('largura');
+            let tam = (document.querySelector('.item').clientWidth - 110) + 'px';
+            let corpos = document.querySelectorAll('.col_titulo');
+            console.log('corpos:' + corpos.length + 'loaded'+ loaded_qtde);
+            if (corpos.length == loaded_qtde){
+                angular.forEach(corpos, function(corpo){
+                    corpo.style.width = tam;
+                    console.log(tam);
+                });
+                clearInterval(intervalo);
+            }
+        },1000);
+    }
+    $scope.largura();
 })
 
-.controller('AccountCtrl', function($scope, Omdb, $http, $cordovaCamera) {
-	$scope.settings = {
-		enableFriends: true
-	};
-
+.controller('AccountCtrl', function($scope, $http, $cordovaCamera, Filmes) {
+	$scope.filme = {id: ''};
     $scope.debugar = function() {
-        $scope.debug = window.localStorage;
+        console.log($scope.filme.id);
+        if ($scope.filme.id != ''){
+            let filme = Filmes.get($scope.filme.id);
+            if (filme == false){
+                $scope.debug = 'Não encontrei esse filme no localStorage';
+                $scope.imdbID = '';
+            } else {
+                $scope.debug = JSON.stringify(filme);
+            }
+        } else {
+            $scope.debug = '';
+            keys = Object.keys(window.localStorage);
+            i = keys.length;
+
+            while ( i-- ) {
+                $scope.debug += 'ID:' + keys[i] + ' - ' + Filmes.get(keys[i]).Title + "<br />";
+            }
+        }
     }
 
     $scope.limpar = function(){
@@ -71,17 +112,9 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SearchCtrl', function($scope, $http, Omdb) {
+.controller('SearchCtrl', function($scope, $http, Filmes) {
     $scope.carregando = false;
     $scope.msg = '';
-
-    $scope.getPoster = function(img){
-        if (img == undefined || img == 'N/A'){
-            return 'img/semposter.png';
-        } else {
-            return img;
-        }
-    }
 
     $scope.getFilme = function(titulo) {
         $scope.carregando = true;
@@ -89,9 +122,20 @@ angular.module('starter.controllers', [])
         if (titulo.length > 3){
             $http(glb.getReqSearch(titulo)).then(function successCallback(response){
                 $scope.carregando = false;
-
+                $scope.filmes = [];
                 if (response.data.Response == "True"){
-                    $scope.filmes = response.data.Search;
+                     let resultados = response.data.Search;
+                     for (let i = 0; i < resultados.length; i++){
+                         let filme = Filmes.get(resultados[i].imdbID);
+                         console.log(filme);
+                         if (filme == false){
+                             Filmes.set(resultados[i]);
+                             filme = Filmes.get(resultados[i].imdbID);
+                             console.log('get');
+                             console.log(filme);
+                         }
+                         $scope.filmes.push(filme);
+                     }
                 } else {
                     $scope.filmes = [];
                     $scope.msg = 'Não encontrei nenhum resultado para ' + document.getElementById('titulo').value;
@@ -103,26 +147,27 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('FilmeCtrl', function($scope, $stateParams, Filmes, Omdb, $http) {
-	var req = glb.getReq($stateParams.filmeId);
-	$http(req).then(function successCallback(response){
-		$scope.filme = response.data;
-        var local = Filmes.get($scope.filme.imdbID);
-        console.log(local);
-        if (local.titulo !== undefined){
-            $scope.filme.Title = local.titulo;
-        }
-        if (local.info !== undefined){
-            $scope.filme.Plot = local.info;
-        }
-        if (local.vaiGostar !== undefined){
-            $scope.filme.vaiGostar = local.vaiGostar;
-        }
-        if (local.capa !== undefined){
-            $scope.filme.Poster = 'img/' + local.capa;
-        }
-	});
+.controller('FilmeCtrl', function($scope, $stateParams, Filmes, $http) {
+    let filme = Filmes.get($stateParams.filmeId);
+    if (filme.Plot != '' || filme.Plot != undefined){
+        $scope.filme = filme;
+    } else {
+        var req = glb.getReq($stateParams.filmeId);
+    	$http(req).then(function successCallback(response){
+    		$scope.filme = response.data;
+            Filmes.set(response.data);
+    	});
+    }
 
+    $scope.gostar = function(){
+        $scope.filme.gostei = true;
+        Filmes.set($scope.filme);
+    };
+
+    $scope.detestar = function(){
+        $scope.filme.gostei = false;
+        Filmes.set($scope.filme);
+    };
 })
 
 .controller('HorariosCtrl', function($scope, $stateParams, Filmes) {

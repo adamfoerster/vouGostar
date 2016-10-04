@@ -1,15 +1,14 @@
 <ion-view view-title="Opções">
-  <ion-content>
-    <ion-list>
-      <ion-toggle ng-model="settings.enableFriends">
-        Enable Friends
-      </ion-toggle>
-    </ion-list>
-    <br />
-    <p class="card padding" >{{debug}}</p>
-    <button class="button button-full" ng-click="debugar()">localStorage</p>
-    <button class="button button-full" ng-click="limpar()">limpar</p>
-    <button class="button button-full" ng-click="takePicture()">Tirar Foto</p>
-    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+    <ion-content>
+        <p class="card padding" ng-bind-html="debug"></p>
+        <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+        <ion-list>
+            <label class="item item-input">
+                <input type="text" placeholder="ID do IMDB" ng-model="filme.id">
+            </label>
+            <button class="button button-full" ng-click="debugar()">Ação</p>
+            <button class="button button-full" ng-click="limpar()">Limpar localStorage</p>
+            <button class="button button-full" ng-click="takePicture()">Tirar Foto</p>
+        </ion-list>
   </ion-content>
 </ion-view>
