@@ -64,13 +64,27 @@ angular.module('starter.controllers', [])
     $scope.largura();
 })
 
-.controller('AccountCtrl', function($scope, $http, $cordovaCamera) {
-	$scope.settings = {
-		enableFriends: true
-	};
-
+.controller('AccountCtrl', function($scope, $http, $cordovaCamera, Filmes) {
+	$scope.filme = {id: ''};
     $scope.debugar = function() {
-        $scope.debug = window.localStorage;
+        console.log($scope.filme.id);
+        if ($scope.filme.id != ''){
+            let filme = Filmes.get($scope.filme.id);
+            if (filme == false){
+                $scope.debug = 'Não encontrei esse filme no localStorage';
+                $scope.imdbID = '';
+            } else {
+                $scope.debug = JSON.stringify(filme);
+            }
+        } else {
+            $scope.debug = '';
+            keys = Object.keys(window.localStorage);
+            i = keys.length;
+
+            while ( i-- ) {
+                $scope.debug += 'ID:' + keys[i] + ' - ' + Filmes.get(keys[i]).Title + "<br />";
+            }
+        }
     }
 
     $scope.limpar = function(){
@@ -134,25 +148,26 @@ angular.module('starter.controllers', [])
 })
 
 .controller('FilmeCtrl', function($scope, $stateParams, Filmes, $http) {
-	var req = glb.getReq($stateParams.filmeId);
-	$http(req).then(function successCallback(response){
-		$scope.filme = response.data;
-        var local = Filmes.get($scope.filme.imdbID);
-        console.log(local);
-        if (local.titulo !== undefined){
-            $scope.filme.Title = local.titulo;
-        }
-        if (local.info !== undefined){
-            $scope.filme.Plot = local.info;
-        }
-        if (local.vaiGostar !== undefined){
-            $scope.filme.vaiGostar = local.vaiGostar;
-        }
-        if (local.capa !== undefined){
-            $scope.filme.Poster = 'img/' + local.capa;
-        }
-	});
+    let filme = Filmes.get($stateParams.filmeId);
+    if (filme.Plot != '' || filme.Plot != undefined){
+        $scope.filme = filme;
+    } else {
+        var req = glb.getReq($stateParams.filmeId);
+    	$http(req).then(function successCallback(response){
+    		$scope.filme = response.data;
+            Filmes.set(response.data);
+    	});
+    }
 
+    $scope.gostar = function(){
+        $scope.filme.gostei = true;
+        Filmes.set($scope.filme);
+    };
+
+    $scope.detestar = function(){
+        $scope.filme.gostei = false;
+        Filmes.set($scope.filme);
+    };
 })
 
 .controller('HorariosCtrl', function($scope, $stateParams, Filmes) {

@@ -23,10 +23,12 @@
                   <div class="col-33 text-center">Duração<br />{{filme.Runtime}}</div>
               </div>
           </div>
+          <div ng-show="filme.gostei != undefined && filme.gostei == false" class="button button-full button-assertive btn-detestei"><h2>Você detestou esse filme</h2></div>
+          <div ng-show="filme.gostei == true" class="button button-full button-balanced btn-gostei"><h2>Você gostou deste filme</h2></div>
           <p>Já assistiu esse filme?</p>
-          <div class="button-bar">
-              <a class="button button-full button-balanced"><i class="ion-happy-outline"></i> Gostei</a>
-              <a class="button button-full button-assertive"><i class="ion-sad-outline"></i> Detestei</a>
+          <div ng-show="filme.gostei == undefined" class="button-bar">
+              <button class="button button-full button-balanced" ng-click="gostar()"><i class="ion-happy-outline"></i> Gostei</button>
+              <button class="button button-full button-assertive"ng-click="detestar()"><i class="ion-sad-outline"></i> Detestei</button>
           </div>
           <p class="campo">Dirigido por</p>
           <p class="valor">{{filme.Director}}</p>

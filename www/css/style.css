@@ -60,7 +60,8 @@
 .card .col_titulo span{
 
 }
-
+/*Estilos da tela de filme*/
+.btn-gostei h2, .btn-detestei h2{color:#fff}
 /* Estilos Gerais */
 
 .peq {
