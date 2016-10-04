@@ -5,6 +5,18 @@ Meu primeiro APP. Um projeto que iniciei para estudar AngularJS, NodeJs e Ionic.
 
 A ideia central do APP parte do princípio que nenhum sistema atual de recomendações de filmes (Netflix, IMDB etc) parece acertar meus gostos.
 
+## Versão atual
+Como é um projeto pequeno e eu sou o único desenvolvedor, não me atenho tão estritamente a versões. Mas pelo roadmap as features atuais colocam o vouGostar na versão *0.4.x*.
+
+## API de filmes
+Desejava usar a API do trakt inicialmente. Mas tive muitos problemas para sequer logar nela. Reconsiderei e acabei usando uma API bem mais simples chamada [OMDB](http://www.omdbapi.com/).
+
+## Backend
+Criar os perfis diferentes e especialmente, compará-los exigirá um máquina mais forte. Portanto as comparações e criação de perfis será feito externamente e consutada via API. Inicialmente pretendia fazer essa API em NodeJs, mas talvez simplifique e faça em PHP Yii2 (framework no qual já tenho familiaridade).
+
+## Material Design
+Pretendia usar o Ionic Material, mas como este projeto foi abandonado estou considerando usar o [Material Design Lite] (https://github.com/google/material-design-lite), mesmo este não sendo feito especificamente para mobile. Mas com o anúncio que o Ionic2 trará o tema Material já como parte integral estou considerando se o esforço valerá a pena. Talvez acabe deixando com o tema regular do Ionic 1.
+
 ## Roadmap
 
 - 0.1 - Versão com o layout inicial das telas de listagem de filmes e de informações e horários.
