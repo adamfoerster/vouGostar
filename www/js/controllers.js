@@ -110,6 +110,21 @@ angular.module('starter.controllers', [])
             // An error occured. Show a message to the user
         });
     }
+
+    $scope.listarUsuarios = function(){
+        $http.get(
+            'http://localhost:8084/usuarios/list'
+        ).success(function(data){
+            console.log(data);
+        });
+    };
+    $scope.listarFilmes = function(){
+        $http.get(
+            'http://localhost:8084/filmes/list'
+        ).success(function(data){
+            console.log(data);
+        });
+    };
 })
 
 .controller('SearchCtrl', function($scope, $http, Filmes) {
