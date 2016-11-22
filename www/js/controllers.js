@@ -120,7 +120,7 @@ angular.module('starter.controllers', [])
     };
     $scope.listarFilmes = function(){
         $http.get(
-            'http://localhost:8084/filmes/list'
+            'http://localhost:8084/emcartaz/list?cidade_id=1'
         ).success(function(data){
             console.log(data);
         });

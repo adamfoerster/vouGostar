@@ -163,6 +163,13 @@ angular.module('starter.services', [])
 				}
 			} // end loop em_cartaz
 		},
+		// salva a lista de filmes em cartaz localmente
+		salvarLista: function(data){
+			for (var i = 0; i < data.length; i++){
+				var filme = data[i];
+				window.localStorage.setItem(filme.imdbid, JSON.stringify(filme));
+			}
+		},
 	}
 })
 

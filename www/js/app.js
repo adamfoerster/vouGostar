@@ -4,6 +4,9 @@ var db = null;
 // variáveis e funções globais
 var glb = {
 	url: "http://www.omdbapi.com/",
+	// servidor onde está o backend
+	backend: 'http://localhost:8084/',
+	em_cartaz: [],
 	getUrl: function() {
 		return this.url;
 	},
@@ -38,8 +41,15 @@ var glb = {
 		}
 	},
 	getEmCartaz: function(){
-		return ['tt2005151', 'tt5221584', 'tt1355631', 'tt1386697', 'tt2660888', 'tt5475002', 'tt4160708', 'tt2709768', 'tt1540011', 'tt3774114'];
+		// return ['tt2005151', 'tt5221584', 'tt1355631', 'tt1386697', 'tt2660888', 'tt5475002', 'tt4160708', 'tt2709768', 'tt1540011', 'tt3774114'];
+		return this.em_cartaz;
 	},
+	setEmCartaz: function(data){
+		for (var i = 0; i < data.length; i++){
+			var filme = data[i];
+			this.em_cartaz.push(filme.imdbid);
+		}
+	}
 }
 
 // variáveis que vão controlar a qtde de filmes carregados no localStorage
@@ -54,7 +64,7 @@ var loaded_qtde = 0;
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform, $cordovaSQLite, Filmes) {
+.run(function($ionicPlatform, $cordovaSQLite, $http, Filmes) {
 	$ionicPlatform.ready(function() {
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -70,6 +80,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		// db = $cordovaSQLite.openDB("vouGostar.db");
         // $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS filmes (id text primary key, titulo text, info text, vai_gostar integer"));
 
+		// Pega a lista de filmes em cartaz
+		$http.get(
+            'http://localhost:8084/emcartaz/list?cidade_id=1'
+        ).success(function(data){
+			console.log(data);
+            glb.setEmCartaz(data);
+			Filmes.salvarLista(data);
+        });
 		// salvar todos os filmes que estão no cinema no localStorage
 		Filmes.salvarLocal();
 
