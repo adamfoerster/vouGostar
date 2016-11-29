@@ -164,7 +164,8 @@ angular.module('starter.controllers', [])
 
 .controller('FilmeCtrl', function($scope, $stateParams, Filmes, $http) {
     let filme = Filmes.get($stateParams.filmeId);
-    if (filme.Plot != '' || filme.Plot != undefined){
+    console.log(filme);
+    if (filme.plot != '' || filme.plot != undefined){
         $scope.filme = filme;
     } else {
         var req = glb.getReq($stateParams.filmeId);

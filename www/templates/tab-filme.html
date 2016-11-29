@@ -4,23 +4,23 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{filme.Title}}">
+<ion-view view-title="{{filme.title}}">
   <ion-content>
-      <div class="list card" ng-show="filme.Title">
+      <div class="list card" ng-show="filme.title">
 
         <div class="item item-avatar">
-          <img ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
-          <h2>{{filme.Title}}</h2>
-          <p>{{filme.Genre}}</p>
+          <img ng-src="{{filme.poster}}" ng-show="filme.poster && filme.poster!='N/A'">
+          <h2>{{filme.title}}</h2>
+          <p>{{filme.genre}}</p>
         </div>
 
         <div class="item item-body dados">
-          <img class="full-image" ng-src="{{filme.Poster}}" ng-show="filme.Poster && filme.Poster!='N/A'">
+          <img class="full-image" ng-src="{{filme.poster}}" ng-show="filme.poster && filme.poster!='N/A'">
           <div class="card">
               <div class="row">
-                  <div class="col-33 text-center">Lançamento<br />{{filme.Released}}</div>
-                  <div class="col-33 text-center">Clas. Ind.<br />{{filme.Rated}}</div>
-                  <div class="col-33 text-center">Duração<br />{{filme.Runtime}}</div>
+                  <div class="col-33 text-center">Lançamento<br />{{filme.released}}</div>
+                  <div class="col-33 text-center">Clas. Ind.<br />{{filme.rated}}</div>
+                  <div class="col-33 text-center">Duração<br />{{filme.runtime}}</div>
               </div>
           </div>
           <div ng-show="filme.gostei != undefined && filme.gostei == false" class="button button-full button-assertive btn-detestei"><h2>Você detestou esse filme</h2></div>
@@ -31,34 +31,34 @@
               <button class="button button-full button-assertive"ng-click="detestar()"><i class="ion-sad-outline"></i> Detestei</button>
           </div>
           <p class="campo">Dirigido por</p>
-          <p class="valor">{{filme.Director}}</p>
+          <p class="valor">{{filme.director}}</p>
           <p class="campo">Escrito por</p>
-          <p class="valor">{{filme.Writer}}</p>
+          <p class="valor">{{filme.writer}}</p>
           <p class="campo">Enredo</p>
-          <p class="valor">{{filme.Plot}}</p>
-          <!-- <p class="campo">Lançamento</p>
-          <p class="valor">{{filme.Released}}</p>
+          <p class="valor">{{filme.plot}}</p>
+          <p class="campo">Lançamento</p>
+          <p class="valor">{{filme.released}}</p>
           <p class="campo">Classificação Indicativa</p>
-          <p class="valor">{{filme.Rated}}</p>
+          <p class="valor">{{filme.rated}}</p>
           <p class="campo">Duração</p>
-          <p class="valor">{{filme.Runtime}}</p> -->
+          <p class="valor">{{filme.runtime}}</p>
           <p class="campo">Atores</p>
-          <p class="valor">{{filme.Actors}}</p>
+          <p class="valor">{{filme.actors}}</p>
           <p class="campo">País</p>
-          <p class="valor">{{filme.Country}}</p>
+          <p class="valor">{{filme.country}}</p>
           <p class="campo">Prêmios</p>
-          <p class="valor">{{filme.Awards}}</p>
+          <p class="valor">{{filme.awards}}</p>
           <!-- <p class="campo">Nota no Metacritic</p>
-          <p class="valor">{{filme.Metascore}}</p>
+          <p class="valor">{{filme.metascore}}</p>
           <p class="campo">Nota na IMDB</p>
-          <p class="valor">{{filme.imdbRating}}</p> -->
+          <p class="valor">{{filme.imdbrating}}</p> -->
           <p class="campo">ID no IMDB</p>
-          <p class="valor">{{filme.imdbID}}</p>
+          <p class="valor">{{filme.imdbid}}</p>
           <div class="card">
               <div class="row">
-                  <div class="col-33 text-center">IMDB<br />{{filme.imdbRating}}</div>
-                  <div class="col-33 text-center">Metacritic<br />{{filme.Metascore}}</div>
-                  <div class="col-33 text-center">Tomatoes<br />{{filme.Tomatoes}}</div>
+                  <div class="col-33 text-center">IMDB<br />{{filme.imdbrating}}</div>
+                  <div class="col-33 text-center">Metacritic<br />{{filme.metascore}}</div>
+                  <div class="col-33 text-center">Tomatoes<br />{{filme.tomatoes}}</div>
               </div>
           </div>
         </div>

@@ -56,12 +56,14 @@ angular.module('starter.services', [])
 	return {
 		listar: function(vaiGostar) {
 			var retorno = [];
+			console.log(em_cartaz);
 			for (var i = 0; i < em_cartaz.length; i++) {
 				var filme = JSON.parse(window.localStorage.getItem(em_cartaz[i]));
 
-				if (filme.vai_gostar == vaiGostar) {
+				if (filme.vai_gostar == vaiGostar || filme.vai_gostar == undefined) {
 					retorno.push(filme);
 				}
+
 			}
 			return retorno;
 		},
