@@ -1,6 +1,4 @@
-angular.module('starter.services', [])
-
-.factory('Filmes', function($http, $ionicLoading) {
+angular.module('starter.services', []).factory('Filmes', function($http, $ionicLoading) {
 	var filmes = [{
 		id: 'tt1540011',
 		titulo: 'Bruxa de Blair',
@@ -173,6 +171,4 @@ angular.module('starter.services', [])
 			}
 		},
 	}
-})
-
-;
+});

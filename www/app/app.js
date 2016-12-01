@@ -105,7 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 	.state('tab', {
 		url: '/tab',
 		abstract: true,
-		templateUrl: 'templates/tabs.html'
+		templateUrl: 'app/tabs.html'
 	})
 
 	// Each tab has its own nav history stack:
@@ -113,7 +113,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		url: '/dash',
 		views: {
 			'tab-content': {
-				templateUrl: 'templates/tab-dash.html',
+				templateUrl: 'filmes/tab-dash.html',
 				controller: 'DashCtrl',
 			},
 		}
@@ -123,7 +123,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		url: '/account',
 		views: {
 			'tab-content': {
-				templateUrl: 'templates/tab-account.html',
+				templateUrl: 'account/tab-account.html',
 				controller: 'AccountCtrl'
 			},
 		}
@@ -133,7 +133,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		url: '/search',
 		views: {
 			'tab-content': {
-				templateUrl: 'templates/tab-search.html',
+				templateUrl: 'filmes/tab-search.html',
 				controller: 'SearchCtrl'
 			},
 		}
@@ -143,7 +143,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		url: '/filme/:filmeId',
 		views: {
 			'tab-content': {
-				templateUrl: 'templates/tab-filme.html',
+				templateUrl: 'filmes/tab-filme.html',
 				controller: 'FilmeCtrl',
 			},
 		}
@@ -153,7 +153,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		url: '/horarios/:filmeId',
 		views: {
 			'tab-content': {
-				templateUrl: 'templates/tab-horarios.html',
+				templateUrl: 'filmes/tab-horarios.html',
 				controller: 'HorariosCtrl',
 			},
 		}
@@ -163,3 +163,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 	$urlRouterProvider.otherwise('/tab/dash');
 
 });
+
+angular.module('starter.controllers', []);
