@@ -1,4 +1,10 @@
-angular.module('starter.controllers').controller('DashCtrl', function($scope, Filmes, $ionicSideMenuDelegate, $http, $ionicLoading) {
+angular
+    .module('starter.controllers')
+    .controller('DashCtrl', DashCtrl);
+
+DashCtrl.$inject = ['$scope', 'Filmes', '$ionicSideMenuDelegate', '$http', '$ionicLoading'];
+
+function DashCtrl($scope, Filmes, $ionicSideMenuDelegate, $http, $ionicLoading){
     $ionicLoading.show({
         template: 'Carregando...'
     }).then(function(){
@@ -60,4 +66,4 @@ angular.module('starter.controllers').controller('DashCtrl', function($scope, Fi
         },1000);
     }
     $scope.largura();
-});
+}

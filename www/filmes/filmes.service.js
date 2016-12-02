@@ -1,174 +1,178 @@
-angular.module('starter.services', []).factory('Filmes', function($http, $ionicLoading) {
-	var filmes = [{
-		id: 'tt1540011',
-		titulo: 'Bruxa de Blair',
-		vai_gostar: false,
-	}, {
-		id: 'tt2709768',
-		titulo: 'Pets - A vida secreta dos bichos',
-		thumbnail: 'img/pets.jpg',
-		vai_gostar: true,
-	}, {
-		id: 'tt4160708',
-		titulo: 'O homem nas trevas',
-		vai_gostar: false,
-	}, {
-		id: 'tt5475002',
-		titulo: 'Um namorado para minha esposa',
-		thumbnail: 'img/namorado.jpg',
-		vai_gostar: false,
-	}, {
-		id: 'tt2660888',
-		titulo: 'Star Trek - Sem Fronteiras',
-		vai_gostar: true,
-		info: "Star Trek Beyond é um filme norte-americano de 2016 dirigido por Justin Lin e escrito por Simon Pegg e Doug Jung. É o décimo terceiro longa-metragem da franquia Star Trek e o terceiro estrelado pelo novo elenco na série reboot. Na história, a tripulação da USS Enterprise é atacada e presa por uma espécia alienígena desconhecida, precisando encontrar um modo de fugir e enfrentar um inimigo que odeia a Federação dos Planetas Unidos.",
-		horarios: [{
-			cinema: 'UCI Palladium',
-			sessoes: "<b>Sala 2</b><br />* Quinta a quarta (legendado): 21h40<br /><b>Preço:</b><br/>* Segunda e terça: R$ 20 (até 17h) <br/>* Segunda e terça: R$ 22 (após 17h)<br />* Quarta: R$ 19<br/>* Quinta, sexta, sábado, domingo e feriado: R$ 24 (até 17h)<br/>* Quinta, sexta, sábado, domingo e feriado: R$ 27 (após 17h) ",
-		}, {
-			cinema: 'IMAX Palladium',
-			sessoes: "<b>Sala 2</b><br />* Quinta a quarta (legendado): 21h40<br /><b>Preço:</b><br/>* Segunda e terça: R$ 20 (até 17h) <br/>* Segunda e terça: R$ 22 (após 17h)<br />* Quarta: R$ 19<br/>* Quinta, sexta, sábado, domingo e feriado: R$ 24 (até 17h)<br/>* Quinta, sexta, sábado, domingo e feriado: R$ 27 (após 17h) ",
-		}, ],
-	}, {
-		id: 'tt1386697',
-		titulo: 'Esquadrão Suicida',
-		thumbnail: 'img/suicide.jpg',
-		vai_gostar: true,
-	}, {
-		id: 'tt1355631',
-		titulo: 'Conexão Escobar',
-		vai_gostar: true,
-	}, {
-		id: 'tt5221584',
-		vai_gostar: false,
-	}, {
-		id: 'tt3774114',
-		vai_gostar: true,
-	}, {
-		id: 'tt2005151',
-		vai_gostar: false,
-	}];
+angular
+	.module('starter.services', [])
+	.factory('Filmes', Filmes);
 
-	var em_cartaz = glb.getEmCartaz();
+Filmes.$inject = ['$http', '$ionicLoading'];
 
+function Filmes($http, $ionicLoading) {
 	return {
-		listar: function(vaiGostar) {
-			var retorno = [];
-			console.log(em_cartaz);
-			for (var i = 0; i < em_cartaz.length; i++) {
-				var filme = JSON.parse(window.localStorage.getItem(em_cartaz[i]));
+		getListaBackend: getListaBackend,
+		listar: listar,
+		getEmCartaz: getEmCartaz,
+		setEmCartaz: setEmCartaz,
+		set: set,
+		get: get,
+		all: all,
+		salvarLocal: salvarLocal,
+		salvarLista: salvarLista,
+	};
+	var fm = this;
+	var filmes = [];
+	var backend = 'http://localhost:8084/';
+	var em_cartaz = [];
 
-				if (filme.vai_gostar == vaiGostar || filme.vai_gostar == undefined) {
-					retorno.push(filme);
-				}
+	function getListaBackend() {
+		return $http.get('http://localhost:8084/emcartaz/list?cidade_id=1')
+			.then(getListaCompleto)
+			.catch(listaErro);
 
-			}
-			return retorno;
-		},
-        set: function(filme) {
-			// vamos procurar localmente os filmes
-			let encontrou = false;
-			console.log('set');
-			console.log(filme);
-			for (let j = 0; j < filmes.length; j++) {
-				var filme_local = filmes[j];
-				if (filme.imdbID == filme_local.id){
-					encontrou = true;
-					filme.id = filme.imdbID;
-					// ve se tem título em pt
-					if (filme_local.titulo != undefined){
-						filme.titulo = filme_local.titulo;
-						filme.Title = filme_local.titulo;
-					}
-					// operações com poster e miniatura
-					if (filme.Poster == 'N/A' || filme.Poster == undefined)
-						filme.Poster == 'img/semposter.png';
-					if (filme_local.thumbnail != undefined ){
-						filme.thumbnail = filme_local.thumbnail;
-						filme.Poster = filme_local.thumbnail;
-					}
-					// setar vai_gostar
-					if (filme_local.vai_gostar != undefined)
-						filme.vai_gostar = filme_local.vai_gostar;
-				}
-			}
-			// se não encontrou localmente preenche com os valores da API
-			if (encontrou == false){
-				filme.id = filme.imdbID;
-				if (filme.Poster == 'N/A')
-					filme.Poster = 'img/semposter.png';
-				if (filme.thumbnail == undefined)
-					filme.thumbnail = filme.Poster;
-				if (filme.titulo == undefined)
-					filme.titulo = filme.Title;
-				if (filme.vai_gostar == undefined)
-					filme.vai_gostar = false;
-			}
+		function getListaCompleto(response){
+			return response.data;
+		}
 
-            window.localStorage.setItem(filme.id, JSON.stringify(filme));
-            return true;
-        },
-		get: function(filmeId) {
-            if(window.localStorage.getItem(filmeId) != undefined) {
-    			return JSON.parse(window.localStorage.getItem(filmeId));
-            } else {
-                return false;
-            }
-		},
-		all: function() {
-			return filmes;
-		},
-		// criar um item local para cada um dos filmes em cartaz
-		salvarLocal: function(){
-			for (var i = 0; i < em_cartaz.length; i++){
-				// vamos checar se já está salvo localmente
-				if (window.localStorage.getItem(em_cartaz[i]) == undefined){
-					var req = glb.getReq(em_cartaz[i]);
-	                $http(req).then(function successCallback(response){
-	                    var filme = response.data;
-						var encontrou = false;
-	                    for (let j = 0; j < filmes.length; j++) {
-							var filme_local = filmes[j];
-							if (filme.imdbID == filme_local.id){
-								encontrou = true;
-								filme.id = filme.imdbID;
-								// ve se tem título em pt
-	                            if (filme_local.titulo != undefined){
-									filme.titulo = filme_local.titulo;
-									filme.Title = filme_local.titulo;
-								}
-								// operações com poster e miniatura
-								if (filme.Poster == 'N/A' || filme.Poster == undefined)
-									filme.Poster == 'img/semposter.png';
-								if (filme_local.thumbnail != undefined ){
-									filme.thumbnail = filme_local.thumbnail;
-									filme.Poster = filme_local.thumbnail;
-								} else {
-									filme.thumbnail = filme.Poster;
-								}
-								// setar vai_gostar
-								if (filme_local.vai_gostar != undefined)
-	                                filme.vai_gostar = filme_local.vai_gostar;
-								else
-									filme.vai_gostar = false;
-							}
-						} // end loop filmes
-						if (encontrou == false)
-							filme.vai_gostar == false;
-						window.localStorage.setItem(filme.imdbID, JSON.stringify(filme));
-						loaded_qtde++;
-	                });
-				} else {
-					loaded_qtde++;
-				}
-			} // end loop em_cartaz
-		},
-		// salva a lista de filmes em cartaz localmente
-		salvarLista: function(data){
-			for (var i = 0; i < data.length; i++){
-				var filme = data[i];
-				window.localStorage.setItem(filme.imdbid, JSON.stringify(filme));
-			}
-		},
+		function listaErro(error){
+			console.log('Erro na busca da lista de filmes.');
+			console.log(error);
+			return error;
+		}
 	}
-});
+
+	function listar(vaiGostar) {
+		return true;
+		var retorno = [];
+		for (var i = 0; i < em_cartaz.length; i++) {
+			var filme = JSON.parse(window.localStorage.getItem(em_cartaz[i]));
+
+			if (filme.vai_gostar == vaiGostar || filme.vai_gostar == undefined) {
+				retorno.push(filme);
+			}
+
+		}
+		return retorno;
+	}
+
+	function getEmCartaz() {
+		return JSON.parse(window.localStorage.getItem('em_cartaz'));
+	}
+
+	function setEmCartaz(data) {
+		console.log('setEmCartaz');
+		var em_cartaz = [];
+		for (var i = 0; i < data.length; i++) {
+			var filme = data[i];
+			em_cartaz.push(filme.imdbid);
+		}
+		window.localStorage.setItem('em_cartaz', JSON.stringify(em_cartaz));
+	}
+
+	function set(filme) {
+		// vamos procurar localmente os filmes
+		let encontrou = false;
+		console.log('set');
+		console.log(filme);
+		for (let j = 0; j < filmes.length; j++) {
+			var filme_local = filmes[j];
+			if (filme.imdbID == filme_local.id) {
+				encontrou = true;
+				filme.id = filme.imdbID;
+				// ve se tem título em pt
+				if (filme_local.titulo != undefined) {
+					filme.titulo = filme_local.titulo;
+					filme.Title = filme_local.titulo;
+				}
+				// operações com poster e miniatura
+				if (filme.Poster == 'N/A' || filme.Poster == undefined)
+					filme.Poster == 'img/semposter.png';
+				if (filme_local.thumbnail != undefined) {
+					filme.thumbnail = filme_local.thumbnail;
+					filme.Poster = filme_local.thumbnail;
+				}
+				// setar vai_gostar
+				if (filme_local.vai_gostar != undefined)
+					filme.vai_gostar = filme_local.vai_gostar;
+			}
+		}
+		// se não encontrou localmente preenche com os valores da API
+		if (encontrou == false) {
+			filme.id = filme.imdbID;
+			if (filme.Poster == 'N/A')
+				filme.Poster = 'img/semposter.png';
+			if (filme.thumbnail == undefined)
+				filme.thumbnail = filme.Poster;
+			if (filme.titulo == undefined)
+				filme.titulo = filme.Title;
+			if (filme.vai_gostar == undefined)
+				filme.vai_gostar = false;
+		}
+
+		window.localStorage.setItem(filme.id, JSON.stringify(filme));
+		return true;
+	}
+
+	function get(filmeId) {
+		if (window.localStorage.getItem(filmeId) != undefined) {
+			return JSON.parse(window.localStorage.getItem(filmeId));
+		} else {
+			return false;
+		}
+	}
+
+	function all() {
+		return filmes;
+	}
+
+	// criar um item local para cada um dos filmes em cartaz
+	function salvarLocal() {
+		// for (var i = 0; i < em_cartaz.length; i++) {
+		// 	// vamos checar se já está salvo localmente
+		// 	if (window.localStorage.getItem(em_cartaz[i]) == undefined) {
+		// 		var req = glb.getReq(em_cartaz[i]);
+		// 		$http(req).then(function successCallback(response) {
+		// 			var filme = response.data;
+		// 			var encontrou = false;
+		// 			for (let j = 0; j < filmes.length; j++) {
+		// 				var filme_local = filmes[j];
+		// 				if (filme.imdbID == filme_local.id) {
+		// 					encontrou = true;
+		// 					filme.id = filme.imdbID;
+		// 					// ve se tem título em pt
+		// 					if (filme_local.titulo != undefined) {
+		// 						filme.titulo = filme_local.titulo;
+		// 						filme.Title = filme_local.titulo;
+		// 					}
+		// 					// operações com poster e miniatura
+		// 					if (filme.Poster == 'N/A' || filme.Poster == undefined)
+		// 						filme.Poster == 'img/semposter.png';
+		// 					if (filme_local.thumbnail != undefined) {
+		// 						filme.thumbnail = filme_local.thumbnail;
+		// 						filme.Poster = filme_local.thumbnail;
+		// 					} else {
+		// 						filme.thumbnail = filme.Poster;
+		// 					}
+		// 					// setar vai_gostar
+		// 					if (filme_local.vai_gostar != undefined)
+		// 						filme.vai_gostar = filme_local.vai_gostar;
+		// 					else
+		// 						filme.vai_gostar = false;
+		// 				}
+		// 			} // end loop filmes
+		// 			if (encontrou == false)
+		// 				filme.vai_gostar == false;
+		// 			window.localStorage.setItem(filme.imdbID, JSON.stringify(filme));
+		// 			loaded_qtde++;
+		// 		});
+		// 	} else {
+		// 		loaded_qtde++;
+		// 	}
+		// } // end loop em_cartaz
+	}
+
+	// salva a lista de filmes em cartaz localmente
+	function salvarLista(data) {
+		console.log('salvarLista');
+		for (var i = 0; i < data.length; i++) {
+			var filme = data[i];
+			window.localStorage.setItem(filme.imdbid, JSON.stringify(filme));
+		}
+	}
+}
