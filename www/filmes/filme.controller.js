@@ -8,17 +8,8 @@
     FilmeCtrl.$inject = ['$scope', '$stateParams', 'Filmes', '$http'];
 
     function FilmeCtrl($scope, $stateParams, Filmes, $http) {
-        let filme = Filmes.get($stateParams.filmeId);
-        console.log(filme);
-        if (filme.plot != '' || filme.plot != undefined){
-            $scope.filme = filme;
-        } else {
-            var req = glb.getReq($stateParams.filmeId);
-            $http(req).then(function successCallback(response){
-                $scope.filme = response.data;
-                Filmes.set(response.data);
-            });
-        }
+        console.log($stateParams);
+        $scope.filme = Filmes.get($stateParams.filmeId);
 
         $scope.gostar = function(){
             $scope.filme.gostei = true;

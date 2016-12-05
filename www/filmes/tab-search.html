@@ -1,35 +1,41 @@
 <ion-view view-title="Pesquisar">
   <ion-content>
-    <div class="bar bar-header item-input-inset">
-      <label class="item-input-wrapper">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="Pesquise pelo título" id="titulo" ng-model="titulo" ng-keyup="$event.keyCode == 13 && getFilme(titulo)">
-      </label>
-      <button class="button button-assertive" id="buscar" ng-click="getFilme(titulo)">
-        Buscar
-      </button>
-    </div>
+    <form name="pesquisaForm">
+      <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-ios-search placeholder-icon"></i>
+          <input type="search" placeholder="Pesquise pelo título" id="titulo" name="titulo" ng-model="titulo" ng-keyup="$event.keyCode == 13 && getFilme(titulo)" ng-minlength="3" ng-required="true">
+        </label>
+        <button class="button button-assertive" id="buscar" ng-click="getFilme(titulo)" ng-disabled="!pesquisaForm.titulo.$valid">Buscar</button>
+      </div>
+    </form>
+
     <div id="carregando" class="text-center" ng-show="carregando">
       <img src="img/loading-plugin.gif"/>
       Carregando...
     </div>
-    <div id="msg" ng-show="msg">{{msg}}</div>
+
+    <div ng-show="pesquisaForm.titulo.$invalid" class="card">
+        <div class="item item-text-wrap">Para pesquisar é necessário digitar pelo menos 3 letras.</div>
+    </div>
+
+    <div id="msg" ng-show="msg" class="card"><div class="item item-text-wrap">{{msg}}</div></div>
 
     <div id="resultados" ng-repeat="filme in filmes">
-        <div class="card item-light">
-            <div class="col col_thumb">
-                <a href="#/tab/filme/{{filme.id}}" class="filme_link">
-                    <img src="{{filme.Poster}}" ng-show="filme.Poster" >
-                </a>
-            </div>
-            <div class="col col_titulo">
-                <a href="#/tab/filme/{{filme.imdbID}}" style="text-decoration:none;">
-                    <h2>{{filme.Title}}</h2>
-                    <span>{{filme.Year}}</span>
-                    <i class="icon ion-chevron-right placeholder-icon"></i>
-                </a>
-            </div>
+      <div class="card item-light">
+        <div class="col col_thumb">
+          <a href="#/tab/filme/{{filme.id}}" class="filme_link">
+            <img src="{{getSrcPoster(filme.Poster)}}" ng-show="filme.Poster">
+          </a>
         </div>
+        <div class="col col_titulo">
+          <a href="#/tab/filme/{{filme.imdbID}}" style="text-decoration:none;">
+            <h2>{{filme.Title}}</h2>
+            <span>{{filme.Year}}</span>
+            <i class="icon ion-chevron-right placeholder-icon"></i>
+          </a>
+        </div>
+      </div>
     </div>
 
   </ion-content>
