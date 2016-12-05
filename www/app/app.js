@@ -7,12 +7,12 @@
 	// 'starter.services' is found in services.js
 	// 'starter.controllers' is found in controllers.js
 	angular
-        .module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.constants', 'ngCordova'])
+        .module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
     	.run(function($ionicPlatform, $cordovaSQLite, $http, Filmes, $rootScope) {
 
             // $rootScope.BACKEND = 'http://localhost:8084/';
-            $rootScope.BACKEND = 'http://ec2-52-41-8-252.us-west-2.compute.amazonaws.com:8081/';
+            // // $rootScope.BACKEND = 'http://ec2-52-41-8-252.us-west-2.compute.amazonaws.com:8081/';
 
     		$ionicPlatform.ready(function() {
     			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
