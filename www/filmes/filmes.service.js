@@ -5,9 +5,9 @@
 		.module('starter.services', [])
 		.factory('Filmes', Filmes);
 
-	Filmes.$inject = ['$http', '$ionicLoading', 'config'];
+	Filmes.$inject = ['$http', '$ionicLoading', 'config', '$q'];
 
-	function Filmes($http, $ionicLoading, config) {
+	function Filmes($http, $ionicLoading, config, $q) {
 		return {
 			getListaBackend: getListaBackend,
 			pesquisar: pesquisar,
@@ -61,7 +61,6 @@
 				if (filme.vai_gostar == vaiGostar || filme.vai_gostar == undefined) {
 					retorno.push(filme);
 				}
-
 			}
 			return retorno;
 		}
@@ -80,11 +79,15 @@
 			window.localStorage.setItem('em_cartaz', JSON.stringify(em_cartaz));
 		}
 
-		function gostar(gostou, imdbid) {
-			let filme = JSON.parse(window.localStorage.getItem(filmeId));
-			return $http.get(config.BACKEND + 'filmes/view-json?id=' + filmeId)
-				.then(getCompleto)
-				.catch(erro);
+		function gostar(filme_id, gostei) {
+			var gosto = {
+				Gosto: {
+					usuario_id: 1,
+					filme_id: filme_id,
+					gostei: gostei,
+				},
+			};
+			return $http.post(config.BACKEND + 'gosto/gostar', gosto);
 		}
 
 		function getCompleto(response) {
@@ -95,33 +98,39 @@
 		function erro() {
 			console.log('erro na chamada de filme:' + filmeId);
 		}
-	}
 
-	function get(filmeId) {
-		if (window.localStorage.getItem(filmeId) != undefined) {
-			return JSON.parse(window.localStorage.getItem(filmeId));
-		} else {
-			return $http.get(config.BACKEND + 'filmes/view-json?id=' + filmeId)
-				.then(getCompleto)
-				.catch(erro);
+		// busca um filme localmente ou, se não encontrar, pela api
+		// sempre retorna uma promise
+		function get(filmeId) {
+			if (window.localStorage.getItem(filmeId) != undefined) {
+				var deferido = $q.defer();
+				deferido.resolve(
+					JSON.parse(window.localStorage.getItem(filmeId))
+				);
+				return deferido.promise;
+			} else {
+				return $http.get(config.BACKEND + 'filmes/view-json?id=' + filmeId)
+					.then(getCompleto)
+					.catch(erro);
+			}
+
+			function getCompleto(response) {
+				window.localStorage.setItem(filmeId, JSON.stringify(response.data));
+				return response.data;
+			}
+
+			function erro() {
+				console.log('erro na chamada de filme:' + filmeId);
+			}
 		}
 
-		function getCompleto(response) {
-			window.localStorage.setItem(filmeId, JSON.stringify(response.data));
-			return response.data;
-		}
-
-		function erro() {
-			console.log('erro na chamada de filme:' + filmeId);
-		}
-	}
-
-	// salva a lista de filmes em cartaz localmente
-	function salvarLista(data) {
-		console.log('salvarLista');
-		for (var i = 0; i < data.length; i++) {
-			var filme = data[i];
-			window.localStorage.setItem(filme.imdbid, JSON.stringify(filme));
+		// salva a lista de filmes em cartaz localmente
+		function salvarLista(data) {
+			console.log('salvarLista');
+			for (var i = 0; i < data.length; i++) {
+				var filme = data[i];
+				window.localStorage.setItem(filme.imdbid, JSON.stringify(filme));
+			}
 		}
 	}
 })();

@@ -5,20 +5,28 @@
         .module('starter.controllers')
         .controller('FilmeCtrl', FilmeCtrl);
 
-    FilmeCtrl.$inject = ['$scope', '$stateParams', 'Filmes', '$http'];
+    FilmeCtrl.$inject = ['$scope', '$stateParams', 'Filmes', '$http', '$ionicLoading'];
 
-    function FilmeCtrl($scope, $stateParams, Filmes, $http) {
-        console.log($stateParams);
-        $scope.filme = Filmes.get($stateParams.filmeId);
+    function FilmeCtrl($scope, $stateParams, Filmes, $http, $ionicLoading) {
 
-        $scope.gostar = function(){
-            $scope.filme.gostei = true;
-            Filmes.set($scope.filme);
+        $ionicLoading.show({
+            template: 'Carregando...'
+        }).then(function(){
+            Filmes
+                .get($stateParams.filmeId)
+                .then(function(data){
+                    $scope.filme = data;
+                    $ionicLoading.hide();
+                })
+            ;
+        });
+
+        $scope.gostar = function(filme_id){
+            Filmes.gostar(filme_id, 1);
         };
 
-        $scope.detestar = function(){
-            $scope.filme.gostei = false;
-            Filmes.set($scope.filme);
+        $scope.detestar = function(filme_id){
+            Filmes.gostar(filme_id, 0);
         };
     }
 
