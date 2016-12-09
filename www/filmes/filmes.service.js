@@ -31,7 +31,7 @@
 			function listaErro(error) {
 				console.log('Erro na busca da lista de filmes.');
 				console.log(error);
-				return error;
+				return $q.reject(error);
 			}
 		}
 

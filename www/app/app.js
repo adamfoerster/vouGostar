@@ -9,10 +9,7 @@
 	angular
         .module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-    	.run(function($ionicPlatform, $cordovaSQLite, $http, Filmes, $rootScope) {
-
-            // $rootScope.BACKEND = 'http://localhost:8084/';
-            // // $rootScope.BACKEND = 'http://ec2-52-41-8-252.us-west-2.compute.amazonaws.com:8081/';
+    	.run(function($ionicPlatform, $cordovaSQLite, $http, Filmes, $rootScope, $ionicPopup) {
 
     		$ionicPlatform.ready(function() {
     			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -28,11 +25,18 @@
 
     			// TODO: verificar a idade da lista local de filmes em cartaz e se estiver muito velha pede de novo.
     			// Pega a lista de filmes em cartaz
-    			Filmes.getListaBackend()
+    			Filmes
+                    .getListaBackend()
     				.then(function(data){
     					Filmes.setEmCartaz(data);
     					Filmes.salvarLista(data);
     				})
+                    .catch(function(){
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Erro na conexão',
+                            template: 'Comunicação com o servidor não foi possível.'
+                        });
+                    })
     			;
     		});
     	})

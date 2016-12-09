@@ -5,9 +5,9 @@
         .module('starter.controllers')
         .controller('FilmeCtrl', FilmeCtrl);
 
-    FilmeCtrl.$inject = ['$scope', '$stateParams', 'Filmes', '$http', '$ionicLoading'];
+    FilmeCtrl.$inject = ['$scope', '$stateParams', 'Filmes', '$http', '$ionicLoading', '$ionicPopup'];
 
-    function FilmeCtrl($scope, $stateParams, Filmes, $http, $ionicLoading) {
+    function FilmeCtrl($scope, $stateParams, Filmes, $http, $ionicLoading, $ionicPopup) {
 
         $ionicLoading.show({
             template: 'Carregando...'
@@ -17,6 +17,12 @@
                 .then(function(data){
                     $scope.filme = data;
                     $ionicLoading.hide();
+                })
+                .catch(function(){
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Erro na conexão',
+                        template: 'Comunicação com o servidor não foi possível'
+                    });
                 })
             ;
         });
