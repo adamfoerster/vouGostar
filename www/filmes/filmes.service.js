@@ -20,7 +20,7 @@
 		};
 
 		function getListaBackend() {
-			return $http.get(config.BACKEND + 'emcartaz/list?cidade_id=1')
+			return $http.get(config.BACKEND + 'emcartaz-rest/list?cidade_id=1')
 				.then(getListaCompleto)
 				.catch(listaErro);
 
