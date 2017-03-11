@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1030600482588",
+    "project_id": "firebase-vougostar"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030600482588:android:92437cc402fbd19b",
+        "android_client_info": {
+          "package_name": "com.adamfoerster.vougostar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030600482588-6v66j648gdo07ffucsa4d6vgrb8im7ou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adamfoerster.vougostar",
+            "certificate_hash": "10AF627B00E89D5902D6E1F17D98ED1DAA2FD680"
+          }
+        },
+        {
+          "client_id": "1030600482588-rb92gn1muuofm2gatv1kd0ah9j2co4rh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoeMl8FjNIu8Xum8DXnlh74qofWyKU-tA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

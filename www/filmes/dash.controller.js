@@ -9,7 +9,7 @@
 
     function DashCtrl($scope, Filmes, $ionicSideMenuDelegate, $http, $ionicLoading){
 
-        carregarFilmesDash();
+        // carregarFilmesDash();
 
         // lista os filmes que estão em cartaz
         function carregarFilmesDash(){
